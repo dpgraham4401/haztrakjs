@@ -1,4 +1,5 @@
 const axios = require('axios');
+const fs = require('fs');
 
 let baseUrl = 'https://www.metaweather.com/api/location/';
 
@@ -21,6 +22,7 @@ async function getWet() {
 
     console.log("the current wind speed is: " + data.wind_speed + " mph");
 
+    await fs.writeFile('auth.json',data)
     
 }
 
