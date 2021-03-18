@@ -8,9 +8,29 @@ const siteID  = 'VATEST000001';
 
 async function getToken() {
     try{
-       const response = await axios.get(baseUrl + 'auth/' + apiId + apiKey);
-    } catch (error) {
-        console.error(error);
+       const tokenResp = await axios.get(baseUrl + 'auth/' + apiId + apiKey);
+       return await tokenResp.data
+
+       console.log(tokenResp.data.token);
+    } 
+    catch (error) {
+        console.log(error);
     }
 }
-getToken();
+
+async function getSiteExist(siteID){
+    try{
+        const tokenResp = await getToken();
+
+        const siteResp = await axios.get(baseUrl + 'site-exits/' + siteID, {
+        headers:{
+            Authorization: 'Bearer ' + tokenResp.token
+        }})
+        return siteResp.data;
+    }
+    catch (error) {
+        // console.error(error);
+    }
+}
+
+getSiteExist(siteID)
