@@ -42,3 +42,4 @@ async function getSiteDetails(siteID){
 // testing area
 // const siteData = getSiteExist(siteID)
 const siteData = getSiteDetails(siteID)
+// console.log(siteData);
