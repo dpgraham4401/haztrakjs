@@ -1,0 +1,31 @@
+{
+  "name": "rint",
+  "version": "0.1.0",
+  "description": "Rint abbreviates RCRAInfo Integration (temp name) and is largely a startig out as a learn-by-doing project to learn how to use the EPA e-Manifest API and get more familiar with javascript",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dpgraham4401/Rint.git"
+  },
+  "keywords": [
+    "e-Manifest",
+    "RCRAInfo",
+    "RCRA",
+    "EPA",
+    "electronic",
+    "manifest"
+  ],
+  "author": "David Graham",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dpgraham4401/Rint/issues"
+  },
+  "homepage": "https://github.com/dpgraham4401/Rint#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^8.2.0"
+  }
+}

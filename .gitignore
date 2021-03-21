@@ -1,4 +1,5 @@
 .env
 Js/Services/.env
 
-Js/Services/node_modules/
+node_modules/
+package-lock.json
