@@ -10,26 +10,30 @@ const siteID  = 'VATEST000001';
 async function getSiteExist(siteID){
     try{
         const tokenResp = await auth.getToken();
-        const siteResponse = await axios.get(baseUrl + 'site-exists/' + siteID, {
-        headers:{
-            Authorization: 'Bearer ' + tokenResp.token
-        }
+        const siteResponse = await axios( {
+            method: 'get',
+            url: `${baseUrl}site-exists/${siteID}`,
+            headers:{
+                Authorization: 'Bearer ' + tokenResp.token
+            }
     })
         // console.log(siteResponse.data);
         return await siteResponse.data;
     }
     catch (error) {
-        console.error(error.data);
+        console.error(error);
     }
 }
 
 async function getSiteDetails(siteID){
     try{
         const tokenResp = await auth.getToken();
-        const siteResponse = await axios.get(`${baseUrl}site-details/${siteID}`, {
-        headers:{
-            Authorization: 'Bearer ' + tokenResp.token
-        }
+        const siteResponse = await axios({
+            method: 'get',
+            url: `${baseUrl}site-details/${siteID}`,
+            headers:{
+                Authorization: 'Bearer ' + tokenResp.token
+            }
     })
         // console.log(siteResponse.data);
         return await siteResponse.data;
@@ -40,6 +44,6 @@ async function getSiteDetails(siteID){
 }
 
 // testing area
-const siteData = getSiteExist(siteID)
-// const siteData = getSiteDetails(siteID)
+// const siteData = getSiteExist(siteID)
+const siteData = getSiteDetails(siteID)
 // console.log(siteData);
