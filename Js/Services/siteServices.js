@@ -16,10 +16,10 @@ async function getSiteExist(siteID){
         }
     })
         // console.log(siteResponse.data);
-        return siteResponse.data;
+        return await siteResponse.data;
     }
     catch (error) {
-        console.error(error);
+        console.error(error.data);
     }
 }
 
@@ -32,7 +32,7 @@ async function getSiteDetails(siteID){
         }
     })
         // console.log(siteResponse.data);
-        return siteResponse.data;
+        return await siteResponse.data;
     }
     catch (error) {
         console.error('Error: getSiteDeatails ',error);
@@ -40,6 +40,6 @@ async function getSiteDetails(siteID){
 }
 
 // testing area
-// const siteData = getSiteExist(siteID)
-const siteData = getSiteDetails(siteID)
+const siteData = getSiteExist(siteID)
+// const siteData = getSiteDetails(siteID)
 // console.log(siteData);
