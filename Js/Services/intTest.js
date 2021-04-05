@@ -26,21 +26,28 @@ async function getSiteExist(siteID){
     }
 }
 
-axios.interceptors.request.use(res => {
-    console.log('test 1');
-    console.log('test 2');
-    const tokenRes = axiosInt.get(`${baseUrl}auth/${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`);
-    res.headers.Authorization = 'Bearer ' + tokenRes.data.token
+// axios.interceptors.response.use(response => {
+//     const response = axiosInt.get(`${baseUrl}auth/${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`);
 
-    return res;
+//     return response;
+// });
+
+axios.interceptors.request.use(async function (config){
+    
+    const response = await axiosInt.get(`${baseUrl}auth/${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`);
+    // console.log(response.data.token)
+    config.headers.Authorization = 'Bearer ' + response.data.token
+    return config
+}, function (error){
+    console.log(error);
 });
 
 async function getSiteExistInt(siteID){
     const siteResTest = await axios( {
         method: 'get',
-        url: `${baseUrl}site-exists/${siteID}`,
-        
+        url: `${baseUrl}site-exists/${siteID}`
     })
+    console.log(siteResTest.data);
 }
 
 // testing area
