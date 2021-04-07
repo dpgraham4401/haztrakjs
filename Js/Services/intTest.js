@@ -3,16 +3,20 @@ require('dotenv').config()
 const axios = require('axios');
 
 axios.default.baseUrl = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/'
-const axiosGet = axios.create();
-
+const axiosGet = axios.create({
+    baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/'
+});
 const axiosInt = axios.create({
-    baseUrl: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/auth/'
+    baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/auth/'
 });
 
-const baseUrl = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/';
+const baseURL = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/';
 
 axiosGet.interceptors.request.use(async function (config){
-    const response = await axiosInt.get(`${baseUrl}auth/${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`);
+    const response = await axiosInt({
+        method: 'get',
+        url: `./${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
+    })
     config.headers.Authorization = 'Bearer ' + response.data.token
     return config
 }, function (error){
@@ -20,11 +24,15 @@ axiosGet.interceptors.request.use(async function (config){
 });
 
 async function getSiteExistInt(siteID){
-    const siteResTest = await axiosGet( {
-        method: 'get',
-        url: `${baseUrl}site-exists/${siteID}`
-    })
-    console.log(siteResTest.data);
+    try{
+        const siteResTest = await axiosGet( {
+            method: 'get',
+            url: `./site-exists/${siteID}`
+        })
+        console.log(siteResTest.data);
+        } catch (error) {
+        console.error(error);
+    }
 }
 
 // testing area
