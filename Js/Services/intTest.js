@@ -6,23 +6,23 @@ axios.default.baseUrl = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/'
 const axiosGet = axios.create({
     baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/'
 });
-const axiosInt = axios.create({
+const axiosAuth = axios.create({
     baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/auth/'
 });
 
-const baseURL = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/';
-
 axiosGet.interceptors.request.use(async function (config){
-    const response = await axiosInt({
+    const response = await axiosAuth({
         method: 'get',
         url: `./${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
     })
     config.headers.Authorization = 'Bearer ' + response.data.token
     return config
-}, function (error){
+},  function (error){
     console.log(error);
 });
 
+
+// Testing Area
 async function getSiteExistInt(siteID){
     try{
         const siteResTest = await axiosGet( {
@@ -30,11 +30,11 @@ async function getSiteExistInt(siteID){
             url: `./site-exists/${siteID}`
         })
         console.log(siteResTest.data);
-        } catch (error) {
+        } 
+    catch (error) {
         console.error(error);
     }
 }
 
-// testing area
 const siteID  = 'VATEST000001';
 const siteDate = getSiteExistInt(siteID)
