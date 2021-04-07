@@ -1,41 +1,18 @@
 // Use the Preprod API to get RCRAInfo/e-Manifest data
+require('dotenv').config()
 const axios = require('axios');
-const axiosInt = axios.create();
 
-// Local modules
-const auth = require('./auth');
+axios.default.baseUrl = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/'
+const axiosGet = axios.create();
+
+const axiosInt = axios.create({
+    baseUrl: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/auth/'
+});
 
 const baseUrl = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/';
-const siteID  = 'VATEST000001';
 
-async function getSiteExist(siteID){
-    try{
-        // const tokenResp = await auth.getToken();
-        const siteResponse = await axios( {
-            method: 'get',
-            url: `${baseUrl}site-exists/${siteID}`,
-            headers:{
-                Authorization: 'Bearer ' + tokenResp.token
-            }
-    })
-        // console.log(siteResponse.data);
-        return await siteResponse.data;
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
-
-// axios.interceptors.response.use(response => {
-//     const response = axiosInt.get(`${baseUrl}auth/${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`);
-
-//     return response;
-// });
-
-axios.interceptors.request.use(async function (config){
-    
+axiosGet.interceptors.request.use(async function (config){
     const response = await axiosInt.get(`${baseUrl}auth/${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`);
-    // console.log(response.data.token)
     config.headers.Authorization = 'Bearer ' + response.data.token
     return config
 }, function (error){
@@ -43,7 +20,7 @@ axios.interceptors.request.use(async function (config){
 });
 
 async function getSiteExistInt(siteID){
-    const siteResTest = await axios( {
+    const siteResTest = await axiosGet( {
         method: 'get',
         url: `${baseUrl}site-exists/${siteID}`
     })
@@ -51,5 +28,5 @@ async function getSiteExistInt(siteID){
 }
 
 // testing area
-// const siteData = getSiteExist(siteID)
+const siteID  = 'VATEST000001';
 const siteDate = getSiteExistInt(siteID)
