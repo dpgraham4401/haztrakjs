@@ -1,49 +1,33 @@
+// siteServices.js
 // Use the Preprod API to get RCRAInfo/e-Manifest data
-const axios = require('axios');
 
-// Local modules
-const auth = require('./auth');
+const eManAPI = require('./eManAPI');
 
-const baseUrl = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/';
-const siteID  = 'VATEST000001';
-
-async function getSiteExist(siteID){
+async function getSiteDetails (siteID){
     try{
-        const tokenResp = await auth.getToken();
-        const siteResponse = await axios( {
-            method: 'get',
-            url: `${baseUrl}site-exists/${siteID}`,
-            headers:{
-                Authorization: 'Bearer ' + tokenResp.token
-            }
-    })
-        // console.log(siteResponse.data);
-        return await siteResponse.data;
+        const siteRes = await eManAPI.get({
+            url: `./site-details/${siteID}`
+        })
+        console.log(siteRes.data);
     }
     catch (error) {
         console.error(error);
     }
 }
 
-async function getSiteDetails(siteID){
+async function getSiteExist(siteID){
     try{
-        const tokenResp = await auth.getToken();
-        const siteResponse = await axios({
-            method: 'get',
-            url: `${baseUrl}site-details/${siteID}`,
-            headers:{
-                Authorization: 'Bearer ' + tokenResp.token
-            }
-    })
-        // console.log(siteResponse.data);
-        return await siteResponse.data;
-    }
+        const siteRes = await eManAPI.get( {
+            url: `./site-exists/${siteID}`
+        })
+        console.log(siteRes.data);
+        } 
     catch (error) {
-        console.error('Error: getSiteDeatails ',error);
+        console.error(error);
     }
 }
 
-// testing area
-// const siteData = getSiteExist(siteID)
-const siteData = getSiteDetails(siteID)
-// console.log(siteData);
+// Testing area
+const baseUrl = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/';
+const siteID  = 'VATEST000001';
+const siteDate = getSiteDetails(siteID)
