@@ -6,10 +6,12 @@ const axiosGet = axios.create({
     baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/',
     method: 'get'
 });
+
 const axiosPost = axios.create({
     baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/',
     method: 'post'
 });
+
 const axiosAuth = axios.create({
     baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/auth/',
     method: 'get'
