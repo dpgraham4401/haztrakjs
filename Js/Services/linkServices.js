@@ -45,7 +45,7 @@ async function dashLink(dash = 'Dashboard', siteID){
 async function eManLink(page = 'Dashboard', siteID, mtn){
     try{
         if (page.length > 5){
-            if (page.toUpperCase() == 'BULLKSIGN'){
+            if (page.toUpperCase() == 'BULKSIGN'){
                 page = 'BulkSign';
             }
             else {
@@ -58,16 +58,8 @@ async function eManLink(page = 'Dashboard', siteID, mtn){
                     "epaSiteId": siteID
                 }
             })
+            console.log(resUiLink.data);
         }
-        // else if (page.toUpperCase() == 'DASHBOARD'){
-        //     const resUiLink = await eManAPI.post( {
-        //         url: `/links/emanifest`,
-        //         data: {
-        //             "page": page,
-        //             "epaSiteId": siteID
-        //         }
-        //     })
-        // }
         else {
             page = page.charAt(0).toUpperCase() + page.slice(1).toLowerCase()
             mtn = mtn.toUpperCase();
@@ -82,15 +74,6 @@ async function eManLink(page = 'Dashboard', siteID, mtn){
                 })
             console.log(resUiLink.data);
            }
-        // siteID = siteID.toUpperCase()
-        //     const resUiLink = await eManAPI.post( {
-        //         url: `/links/emanifest`,
-        //         data: {
-        //            "page": page,
-        //            "epaSiteId": siteID
-        //         }
-        //     })
-        // console.log(resUiLink.data);
         } 
     catch (error) {
         console.error(error);
@@ -98,7 +81,7 @@ async function eManLink(page = 'Dashboard', siteID, mtn){
 }
 
 // Testing Area
-const page = 'View';
+const page = 'BulkSign';
 const siteID  = 'VATEST000001';
 const mtn = '100031335ELC';
-const siteDate = mtnLink(page, siteID, mtn)
+const siteDate = eManLink(page, siteID, mtn)
