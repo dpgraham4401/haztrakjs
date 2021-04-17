@@ -3,7 +3,7 @@
 
 const eManAPI = require('./eManAPI');
 
-async function getSiteDetails (siteID){
+async function SiteDetails (siteID){
     try{
         const siteRes = await eManAPI.get({
             url: `./site-details/${siteID}`
@@ -15,7 +15,7 @@ async function getSiteDetails (siteID){
     }
 }
 
-async function getSiteExist(siteID){
+async function SiteExist(siteID){
     try{
         const siteRes = await eManAPI.get( {
             url: `./site-exists/${siteID}`
@@ -27,7 +27,31 @@ async function getSiteExist(siteID){
     }
 }
 
+// need to debug
+async function siteSearch(){
+    try{
+        const siteRes = await eManAPI.post( {
+            url: `/site-search`,
+            data: {
+                "name": "Heating and Oil",
+                "zip": "22033",
+                "state": "VA"
+            }
+        })
+        console.log(siteRes.data);
+        } 
+    catch (error) {
+        console.error(error);
+    }
+}
+
+module.exports.siteDeatils = SiteDetails;
+module.exports.siteExists = SiteExist;
+
 // Testing area
-const baseUrl = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/';
+// const baseUrl = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/';
 const siteID  = 'VATEST000001';
-const siteDate = getSiteDetails(siteID)
+const searchData = {
+    "epaSiteId": 'VATEST000001'
+}
+const siteDate = siteSearch();
