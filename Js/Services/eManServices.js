@@ -1,11 +1,15 @@
 // e-Manifest Services
 const eManAPI = require('./eManAPI');
-async function eManGet(mtn) {
+async function eManGet(mtn, attachments=0) {
     try{
         const res = await eManAPI.get({
-            url: `/emanifest/manifest/${mtn}`
+            if (attachments)
+            'url': `/emanifest/manifest/${mtn}/attachments`,
+           'headers':{
+               'Accept': 'multipart/mixed'
+            }
         })
-        console.log(res.data);
+        //console.log(res.data);
     }
     catch (error){
         console.error(error);
@@ -13,5 +17,5 @@ async function eManGet(mtn) {
 }
 
 // Testing Area
-const mtn = '014059555JJK';
+const mtn = '100024721ELC';
 const test = eManGet(mtn);
