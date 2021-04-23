@@ -16,4 +16,3 @@ async function eManGet(mtn) {
 const mtn = '014059555JJK';
 const test = eManGet(mtn);
 
-//test
