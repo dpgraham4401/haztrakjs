@@ -1,4 +1,8 @@
+# Dotenv environment variable
 .env
-Js/Services/.env
 
+# Node Modules 
 node_modules/
+
+# Distrobution Files
+dist/
