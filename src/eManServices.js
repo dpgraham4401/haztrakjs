@@ -16,15 +16,15 @@ async function eManGet(mtn, attachments=0) {
             var boundIndex = res.headers['content-type'].indexOf('boundary=') + 'boundary='.length;
             var bound = '--' + res.headers['content-type'].slice(boundIndex, res.headers['content-type'].length);
 
-            var d = new Dicer({boundary: bound})
-            d.on('part', function(p) {
-                console.log('New Part!');
-                p.on('header', function(header){
-                    for (var h in header) {
-                        console.log('Part header: K ' + inspect(h) + ' ' inspect(header[h]));
-                    }
-                })
-            })
+            // var d = new Dicer({boundary: bound})
+            // d.on('part', function(p) {
+            //     console.log('New Part!');
+            //     p.on('header', function(header){
+            //         for (var h in header) {
+            //             console.log('Part header: K ' + inspect(h) + ' ' inspect(header[h]));
+            //         }
+            //     })
+            // })
 
             fs.writeFile('./test.json', emanData[1], function (err) {
                 if (err) {

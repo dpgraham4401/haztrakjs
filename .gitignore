@@ -6,3 +6,6 @@ node_modules/
 
 # Distrobution Files
 dist/
+
+#webstorm stuff, IDK why I'm using this thing
+.idea/
