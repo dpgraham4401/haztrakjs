@@ -9,3 +9,6 @@ dist/
 
 #webstorm stuff, IDK why I'm using this thing
 .idea/
+
+# eslint
+.eslintrc.json

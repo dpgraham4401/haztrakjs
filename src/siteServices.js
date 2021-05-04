@@ -1,51 +1,51 @@
 // siteServices.js
 
-const eManAPI = require('./eManAPI');
+const eManAPI = require('./eManAPI')
 
-async function SiteDetails (siteID){
-    try{
-        const siteRes = await eManAPI.get({
-            url: `./site-details/${siteID}`
-        })
-        console.log(siteRes.data);
-    }
-    catch (error) {
-        console.error(error);
-    }
+async function SiteDetails (siteID) {
+  try {
+    const siteRes = await eManAPI.get({
+      url: `./site-details/${siteID}`
+    })
+    console.log(siteRes.data)
+  } catch (error) {
+    console.error(error)
+  }
 }
 
-async function SiteExist(siteID){
-    try{
-        const siteRes = await eManAPI.get( {
-            url: `./site-exists/${siteID}`
-        })
-        console.log(siteRes.data);
-        } 
-    catch (error) {
-        console.error(error);
-    }
+async function SiteExist (siteID) {
+  try {
+    const siteRes = await eManAPI.get({
+      url: `./site-exists/${siteID}`
+    })
+    console.log(siteRes.data)
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 // need to debug
-async function siteSearch(){
-    try{
-        const siteRes = await eManAPI.post( {
-            url: `/site-search`,
-            data: {
-                "name": "Heating and Oil",
-                "zip": "22033",
-                "state": "VA"
-            }
-        })
-        console.log(siteRes.data);
-        } 
-    catch (error) {
-        console.error(error);
-    }
+// eslint-disable-next-line no-unused-vars
+async function siteSearch () {
+  try {
+    const siteRes = await eManAPI.post({
+      url: '/site-search',
+      data: {
+        name: 'Heating and Oil',
+        // eslint-disable-next-line quotes
+        zip: "22033",
+        // eslint-disable-next-line quotes
+        state: "VA"
+      }
+    })
+    console.log(siteRes.data)
+  } catch (error) {
+    console.error(error)
+  }
 }
 
-module.exports.siteDeatils = SiteDetails;
-module.exports.siteExists = SiteExist;
+module.exports.siteDeatils = SiteDetails
+module.exports.siteExists = SiteExist
 
 // Testing area
 // const baseUrl = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/';

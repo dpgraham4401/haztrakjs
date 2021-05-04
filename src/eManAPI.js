@@ -1,44 +1,44 @@
 // Use the Preprod API to get RCRAInfo/e-Manifest data
 require('dotenv').config()
-const axios = require('axios');
+const axios = require('axios')
 
 const axiosGet = axios.create({
-    baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/',
-    method: 'get'
-});
+  baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/',
+  method: 'get'
+})
 
 const axiosPost = axios.create({
-    baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/',
-    method: 'post'
-});
+  baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/',
+  method: 'post'
+})
 
 const axiosAuth = axios.create({
-    baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/auth/',
-    method: 'get'
-});
+  baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/auth/',
+  method: 'get'
+})
 
-axiosGet.interceptors.request.use(async function (config){
-    const response = await axiosAuth({
-        url: `./${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
-    })
-    config.headers.Authorization = 'Bearer ' + response.data.token
-    return config
-},  function (error){
-    console.log(error);
-});
+axiosGet.interceptors.request.use(async function (config) {
+  const response = await axiosAuth({
+    url: `./${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
+  })
+  config.headers.Authorization = 'Bearer ' + response.data.token
+  return config
+}, function (error) {
+  console.log(error)
+})
 
-axiosPost.interceptors.request.use(async function (config){
-    const response = await axiosAuth({
-        url: `./${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
-    })
-    config.headers.Authorization = 'Bearer ' + response.data.token
-    return config
-},  function (error){
-    console.log(error);
-});
+axiosPost.interceptors.request.use(async function (config) {
+  const response = await axiosAuth({
+    url: `./${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
+  })
+  config.headers.Authorization = 'Bearer ' + response.data.token
+  return config
+}, function (error) {
+  console.log(error)
+})
 
-module.exports.get = axiosGet;
-module.exports.post = axiosPost;
+module.exports.get = axiosGet
+module.exports.post = axiosPost
 
 // Testing Area
 // async function getSiteExistInt(siteID){
@@ -47,7 +47,7 @@ module.exports.post = axiosPost;
 //             url: `./site-exists/${siteID}`
 //         })
 //         console.log(siteResTest.data);
-//         } 
+//         }
 //     catch (error) {
 //         console.error(error);
 //     }
