@@ -1,6 +1,7 @@
 // e-Manifest UI Link Serves
 
-const eManAPI = require('./eManAPI')
+// const eManAPI = require('./eManAPI')
+import * as eManAPI from './eManAPI.js'
 
 async function eManLink (page = 'Dashboard', siteID, mtn) {
   try {
@@ -39,7 +40,8 @@ async function eManLink (page = 'Dashboard', siteID, mtn) {
   }
 }
 
-exports.eManLink = eManLink
+// exports.eManLink = eManLink
+export { eManLink }
 
 // Testing Area
 // const page = 'BulkSign';
