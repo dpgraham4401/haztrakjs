@@ -1,8 +1,9 @@
 // siteServices.js
 
-const eManAPI = require('./eManAPI')
+// const eManAPI = require('./eManAPI')
+import * as eManAPI from './eManAPI.js'
 
-async function SiteDetails (siteID) {
+async function siteDetails (siteID) {
   try {
     const siteRes = await eManAPI.get({
       url: `./site-details/${siteID}`
@@ -13,7 +14,7 @@ async function SiteDetails (siteID) {
   }
 }
 
-async function SiteExist (siteID) {
+async function siteExist (siteID) {
   try {
     const siteRes = await eManAPI.get({
       url: `./site-exists/${siteID}`
@@ -44,8 +45,9 @@ async function siteSearch () {
   }
 }
 
-module.exports.siteDeatils = SiteDetails
-module.exports.siteExists = SiteExist
+export { siteDetails, siteExist }
+// module.exports.siteDeatils = SiteDetails
+// module.exports.siteExists = SiteExist
 
 // Testing area
 // const baseUrl = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/';

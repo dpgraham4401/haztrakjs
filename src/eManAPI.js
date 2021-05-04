@@ -1,6 +1,8 @@
 // Use the Preprod API to get RCRAInfo/e-Manifest data
-require('dotenv').config()
-const axios = require('axios')
+// require('dotenv').config()
+// const axios = require('axios')
+import {} from 'dotenv/config.js'
+import axios from 'axios'
 
 const axiosGet = axios.create({
   baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/',
@@ -24,7 +26,7 @@ axiosGet.interceptors.request.use(async function (config) {
   config.headers.Authorization = 'Bearer ' + response.data.token
   return config
 }, function (error) {
-  console.log(error)
+  console.log(error);
 })
 
 axiosPost.interceptors.request.use(async function (config) {
@@ -37,21 +39,11 @@ axiosPost.interceptors.request.use(async function (config) {
   console.log(error)
 })
 
-module.exports.get = axiosGet
-module.exports.post = axiosPost
+// module.exports.get = axiosGet
+// module.exports.post = axiosPost
 
-// Testing Area
-// async function getSiteExistInt(siteID){
-//     try{
-//         const siteResTest = await axiosGet( {
-//             url: `./site-exists/${siteID}`
-//         })
-//         console.log(siteResTest.data);
-//         }
-//     catch (error) {
-//         console.error(error);
-//     }
-// }
+export { axiosGet as get, axiosPost as post }
 
+// Testing area
 // const siteID  = 'VATEST000001';
 // const siteDate = getSiteExistInt(siteID)
