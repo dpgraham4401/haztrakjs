@@ -14,6 +14,7 @@ npm package to integrate with with EPA's RCRAInfo and e-Manifest system
 - Validate EPA ID
 - Deep Link to e-Manifest sign
 - Get site details
+- Get manifest data (JSON)
 
   
 ## Installation (Placeholder)
