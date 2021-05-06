@@ -1,8 +1,12 @@
 // siteServices.js
 
-// const eManAPI = require('./eManAPI')
 import * as eManAPI from './eManAPI.js'
 
+/**
+ * Request EPA ID site details
+ *
+ * @param {string} siteID the epa id
+ * */
 async function siteDetails (siteID) {
   try {
     const siteRes = await eManAPI.get({
@@ -14,6 +18,11 @@ async function siteDetails (siteID) {
   }
 }
 
+/**
+ * Validate a handler's EPA ID
+ *
+ * @param {string} siteID
+ */
 async function siteExist (siteID) {
   try {
     const siteRes = await eManAPI.get({
@@ -25,7 +34,6 @@ async function siteExist (siteID) {
   }
 }
 
-// need to debug
 // eslint-disable-next-line no-unused-vars
 async function siteSearch () {
   try {
@@ -46,13 +54,3 @@ async function siteSearch () {
 }
 
 export { siteDetails, siteExist }
-// module.exports.siteDeatils = SiteDetails
-// module.exports.siteExists = SiteExist
-
-// Testing area
-// const baseUrl = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/';
-// const siteID  = 'VATEST000001';
-// const searchData = {
-//    "epaSiteId": 'VATEST000001'
-// }
-// const siteDate = siteSearch();

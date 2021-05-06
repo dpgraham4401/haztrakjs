@@ -1,6 +1,5 @@
 // Use the Preprod API to get RCRAInfo/e-Manifest data
-// require('dotenv').config()
-// const axios = require('axios')
+
 import {} from 'dotenv/config.js'
 import axios from 'axios'
 
@@ -26,7 +25,7 @@ axiosGet.interceptors.request.use(async function (config) {
   config.headers.Authorization = 'Bearer ' + response.data.token
   return config
 }, function (error) {
-  console.log(error);
+  console.log(error)
 })
 
 axiosPost.interceptors.request.use(async function (config) {
@@ -38,9 +37,6 @@ axiosPost.interceptors.request.use(async function (config) {
 }, function (error) {
   console.log(error)
 })
-
-// module.exports.get = axiosGet
-// module.exports.post = axiosPost
 
 export { axiosGet as get, axiosPost as post }
 

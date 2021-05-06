@@ -1,8 +1,16 @@
 // e-Manifest UI Link Serves
 
-// const eManAPI = require('./eManAPI')
 import * as eManAPI from './eManAPI.js'
 
+/**
+ * Create link to e-Manifest signature page
+ *
+ * @param {string} page default=Dashboard, BulkSign
+ * @param {string} siteID epa id
+ * @param {array} array of manifest tracking numbers
+ *
+ * @return {string} Deep link to e-Manifest page
+ * */
 async function eManLink (page = 'Dashboard', siteID, mtn) {
   try {
     if (page.length > 5) {
@@ -40,10 +48,8 @@ async function eManLink (page = 'Dashboard', siteID, mtn) {
   }
 }
 
-// exports.eManLink = eManLink
 export { eManLink }
 
-// Testing Area
 // const page = 'BulkSign';
 // const siteID  = 'VATEST000001';
 // const mtn = ['100031335ELC', '019404529JJK', '019404519JJK'];
