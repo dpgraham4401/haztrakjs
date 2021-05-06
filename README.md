@@ -13,17 +13,11 @@ npm package to integrate with with EPA's RCRAInfo and e-Manifest system
   - [Example](#examples)
     - [Site Exist](#site-exist)
     - [Manifest UI Link](#manifests-ui-link)
-  
-## Features
 
-- Validate EPA ID
-- Deep Link to e-Manifest sign
-- Get site details
-- Get manifest data (JSON)
 
-  
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
+
 ## Installation
-
 Currently unavailable
 
 ```bash 
@@ -42,15 +36,14 @@ To run this project, you will need to add the following environment variables to
 ## Examples
 
 ### Site Exist
-
 ```javascript
 import * as eMan from 'Rint'
 
 const siteID = 'VATEST000001'
 const siteIdCheck = eMan.siteExist(siteID)
 ```
-### manifests UI link
 
+### manifests UI link
 ```javascript
 import * as eMan from 'Rint'
 

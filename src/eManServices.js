@@ -1,8 +1,13 @@
 // e-Manifest Services
+//
 const eManAPI = require('./eManAPI')
-const fs = require('fs')
-// const Dicer = require('dicer');
 
+/**
+ * Get manifests Data and/or attachment
+ *
+ * @param {string} mtn manifest tracking number
+ * @param {boolean} attachments [1] get zip files [0] just JSON
+ * */
 async function eManGet (mtn, attachments = 0) {
   try {
     if (attachments) {
@@ -36,6 +41,7 @@ async function eManGet (mtn, attachments = 0) {
       //     return console.log(err)
       //   }
       // })
+      return res
     } else {
       const res = await eManAPI.get({
         url: `/emanifest/manifest/${mtn}`,
@@ -43,16 +49,17 @@ async function eManGet (mtn, attachments = 0) {
           Accept: 'application/json'
         }
       })
+      return res.data
     }
-    console.log(res.data)
-    // console.log(bound);
-    // console.log(emanData[2]);
+    // console.log(res.data)
   } catch (error) {
     console.error(error)
   }
 }
 
+export { eManGet }
+
 // Testing Area
-const mtn = '100024721ELC'
-const attachments = 1
-eManGet(mtn, attachments)
+// const mtn = '100024721ELC'
+// const attachments = 0
+// eManGet(mtn, attachments)
