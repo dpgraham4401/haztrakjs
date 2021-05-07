@@ -28,7 +28,8 @@ async function eManLink (page = 'Dashboard', siteID, mtn) {
           filter: mtn
         }
       })
-      console.log(resUiLink.data)
+      return resUiLink.data
+      // console.log(resUiLink.data)
     } else {
       page = page.charAt(0).toUpperCase() + page.slice(1).toLowerCase()
       mtn = mtn.toUpperCase()
@@ -41,7 +42,8 @@ async function eManLink (page = 'Dashboard', siteID, mtn) {
           manifestTrackingNumber: mtn
         }
       })
-      console.log(resUiLink.data)
+      // console.log(resUiLink.data)
+      return resUiLink.data
     }
   } catch (error) {
     console.error(error)
@@ -49,8 +51,3 @@ async function eManLink (page = 'Dashboard', siteID, mtn) {
 }
 
 export { eManLink }
-
-// const page = 'BulkSign';
-// const siteID  = 'VATEST000001';
-// const mtn = ['100031335ELC', '019404529JJK', '019404519JJK'];
-// const siteDate = eManLink(page, siteID, mtn)

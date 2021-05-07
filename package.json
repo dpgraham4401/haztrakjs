@@ -1,6 +1,6 @@
 {
   "name": "rint",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Rint abbreviates RCRAInfo Integration (temp name) and is largely a startig out as a learn-by-doing project to learn how to use the EPA e-Manifest API and get more familiar with javascript",
   "main": "./dist/main.js ",
   "scripts": {
@@ -36,6 +36,10 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
+    "mocha": "^8.3.2",
     "rollup": "^2.46.0"
+  },
+  "scripts": {
+      "test": "mocha"
   }
 }

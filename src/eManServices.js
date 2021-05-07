@@ -1,6 +1,7 @@
 // e-Manifest Services
-//
-const eManAPI = require('./eManAPI')
+
+// const eManAPI = require('./eManAPI')
+import * as eManAPI from './eManAPI.js'
 
 /**
  * Get manifests Data and/or attachment

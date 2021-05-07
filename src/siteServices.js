@@ -12,7 +12,8 @@ async function siteDetails (siteID) {
     const siteRes = await eManAPI.get({
       url: `./site-details/${siteID}`
     })
-    console.log(siteRes.data)
+    // console.log(siteRes.data)
+    return siteRes.data
   } catch (error) {
     console.error(error)
   }
@@ -28,12 +29,14 @@ async function siteExist (siteID) {
     const siteRes = await eManAPI.get({
       url: `./site-exists/${siteID}`
     })
-    console.log(siteRes.data)
+    // console.log(siteRes.data)
+    return siteRes.data
   } catch (error) {
     console.error(error)
   }
 }
 
+// beta
 // eslint-disable-next-line no-unused-vars
 async function siteSearch () {
   try {
