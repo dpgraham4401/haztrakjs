@@ -1,3 +1,6 @@
+<p align="center">
+<img src="https://github.com/dpgraham4401/hazTrak/blob/master/ht_lightgrey_nobackground.png">
+</p>
 
 <h1 align="center"><em> hazTrak </em></h1>
 
