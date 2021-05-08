@@ -1,13 +1,12 @@
 
-# Rint
+<h1 align="center"><em> hazTrak </em></h1>
 
-npm package to integrate with with EPA's RCRAInfo and e-Manifest system
+<p align="center">An npm package to integrate with e-Manifest and consume RCRAInfo APIs</p>
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 
 ## Table of Contents
 
-  - [Features](#features)
   - [Installation](#installation)
   - [Environment Variables](#environment-variables)
   - [Example](#examples)
@@ -21,7 +20,7 @@ npm package to integrate with with EPA's RCRAInfo and e-Manifest system
 Currently unavailable
 
 ```bash 
-  npm install 
+  npm install hazTrak
 ```
     
 ## Environment Variables
