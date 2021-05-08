@@ -27,8 +27,7 @@
   "homepage": "https://github.com/dpgraham4401/Rint#readme",
   "dependencies": {
     "axios": "^0.21.1",
-    "dotenv": "^8.2.0",
-    "fs": "^0.0.1-security"
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "eslint": "^7.25.0",
