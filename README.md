@@ -3,7 +3,7 @@
 </p>
 <h1 align="center"><em> hazTrak </em></h1>
 
-<p align="center">An npm package to integrate with e-Manifest and consume RCRAInfo APIs</p>
+<p align="center">An npm package to integrate with the EPA electronic hazardous waste tracking system e-Manifest</p>
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 
