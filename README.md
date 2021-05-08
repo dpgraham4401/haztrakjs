@@ -1,7 +1,6 @@
 <p align="center">
-<img src="https://github.com/dpgraham4401/hazTrak/blob/master/ht_lightgrey_nobackground.png">
+<img src="https://github.com/dpgraham4401/hazTrak/blob/master/logo.png">
 </p>
-
 <h1 align="center"><em> hazTrak </em></h1>
 
 <p align="center">An npm package to integrate with e-Manifest and consume RCRAInfo APIs</p>
