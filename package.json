@@ -1,6 +1,6 @@
 {
   "name": "hazTrak",
-  "version": "1.0.0",
+  "version": "1.1.0-0",
   "description": "Rint abbreviates RCRAInfo Integration (temp name) and is largely a startig out as a learn-by-doing project to learn how to use the EPA e-Manifest API and get more familiar with javascript",
   "main": "./dist/main.js ",
   "scripts": {
