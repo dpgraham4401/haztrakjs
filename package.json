@@ -4,7 +4,8 @@
   "description": "Rint abbreviates RCRAInfo Integration (temp name) and is largely a startig out as a learn-by-doing project to learn how to use the EPA e-Manifest API and get more familiar with javascript",
   "main": "./dist/main.js ",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "prepare": "husky install"
   },
   "type": "module",
   "repository": {
@@ -41,10 +42,9 @@
     "mocha": "^8.3.2",
     "rollup": "^2.46.0"
   },
-    "husky": {
-        "hooks": {
-            "pre-commit": "echo git is awesome"
-        }
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo git is awesome"
     }
-
+  }
 }
