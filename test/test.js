@@ -1,5 +1,5 @@
 // test.js
-import * as eMan from '../src/main.js'
+import * as eMan from '../build/hazTrak.js'
 
 // linkServices.js
 // const page = 'BulkSign'
