@@ -26,7 +26,7 @@ This packages aims to make using the e-Manifest API easier to consume. For addit
 Currently unavailable
 
 ```bash 
-  npm install hazTrak
+  npm install haztrak
 ```
     
 ## Environment Variables
