@@ -46,7 +46,7 @@
     "husky": "^6.0.0",
     "mocha": "^8.4.0",
     "rollup": "^2.47.0",
-    "standard-version": "^9.3.0"
+    "semantic-release": "^17.4.2"
   },
   "husky": {
     "hooks": {
