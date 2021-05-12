@@ -1,6 +1,6 @@
 // Use the Preprod API to get RCRAInfo/e-Manifest data
 
-import {} from 'dotenv/config.js'
+import {} from 'dotenv/config'
 import axios from 'axios'
 
 const axiosGet = axios.create({
