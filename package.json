@@ -1,6 +1,6 @@
 {
   "name": "haztrak",
-  "version": "0.0.0-0",
+  "version": "1.0.2",
   "description": "Easily integrate web applications with the EPA e-Manifest system and RCRAInfo",
   "main": "./dist/main.js ",
   "scripts": {
