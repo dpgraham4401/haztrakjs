@@ -1,18 +1,18 @@
 {
   "name": "haztrak",
-  "version": "1.1.1-0",
+  "version": "0.0.0-0",
   "description": "Easily integrate web applications with the EPA e-Manifest system and RCRAInfo",
   "main": "./dist/main.js ",
   "scripts": {
     "test": "mocha",
     "build": "rollup -c",
     "prepare": "husky install",
-    "release": "standard-version"
+    "semantic-release": "semantic-release"
   },
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dpgraham4401/hazTrak.git"
+    "url": "https://github.com/dpgraham4401/hazTrak.git"
   },
   "keywords": [
     "e-Manifest",
@@ -38,8 +38,10 @@
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
+    "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/github": "^7.2.3",
     "@semantic-release/npm": "^7.1.3",
+    "@semantic-release/release-notes-generator": "^9.0.2",
     "eslint": "^7.26.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
@@ -48,11 +50,21 @@
     "husky": "^6.0.0",
     "mocha": "^8.4.0",
     "rollup": "^2.47.0",
-    "semantic-release": "^17.4.2"
+    "semantic-release": "^17.4.3"
   },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "release": {
+      "plugin": [
+          "@semantic-release/commit-analyzer",
+          "@semantic-release/release-notes-generator",
+          "@semantic-release/npm",
+          "@semantic-release/changelog",
+          "@semantic-release/git"
+      ],
+      "branch": "master"
   }
 }
