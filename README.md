@@ -6,6 +6,9 @@
 <p align="center"> Easily integrate with the EPA electronic hazardous waste tracking system e-Manifest</p>
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
+[![Build](https://github.com/dpgraham4401/hazTrak/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/dpgraham4401/hazTrak/actions/workflows/npm-publish.yml)
+
+## Still in alpha phase!!!
 
 ## Table of Contents
   - [Intro](#Intro)
