@@ -61,9 +61,17 @@
       "plugin": [
           "@semantic-release/commit-analyzer",
           "@semantic-release/release-notes-generator",
+          [
+              "@semantic-release/changelog",
+              {
+                  "changelogFile": "docs/CHANGELOG.md"
+              }
+          ],
           "@semantic-release/npm",
-          "@semantic-release/changelog",
-          "@semantic-release/git"
+          ["@semantic-release/git", {
+              "assets": ["package.json"],
+              "message": "chore(release): ${nextRelease.Version} [skip ci]\n\n${nextRelease.notes}"
+          }]
       ],
       "branch": "master"
   }
