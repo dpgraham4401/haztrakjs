@@ -26,7 +26,6 @@ This packages aims to make using the e-Manifest API easier to consume. For addit
   - [About e-Manifest](https://www.epa.gov/e-manifest)
 
 ## Installation
-Currently unavailable
 
 ```bash 
   npm install haztrak
