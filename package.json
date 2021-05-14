@@ -68,9 +68,10 @@
               }
           ],
           "@semantic-release/npm",
-          ["@semantic-release/git", {
-              "assets": ["package.json"],
-              "message": "chore(release): ${nextRelease.Version} [skip ci]\n\n${nextRelease.notes}"
+          ["@semantic-release/github", {
+              "assets": [
+                  {"path": "./package.json", "label": "package.json"}
+              ]
           }]
       ],
       "branch": "master"
