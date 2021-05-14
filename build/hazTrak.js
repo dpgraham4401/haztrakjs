@@ -3987,4 +3987,30 @@ async function eManGet (mtn, attachments = 0) {
 // const attachments = 0
 // eManGet(mtn, attachments)
 
-export { eManGet, eManLink, siteDetails, siteExist };
+// lookServ.js
+
+/**
+ * Lookup for RCRAInfo codes
+ *
+ * @param {string} den, min, port, form, source, state, fed, or mngt
+ * */
+async function lookup (codes) {
+  try {
+    let codeUrl = '';
+    if (codes === 'den') {
+      codeUrl = '/lookup/density-uom';
+    }
+    const res = await axiosGet({
+      url: codeUrl
+    });
+    // console.log(res.data)
+    return res.data
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// test area
+lookup('den');
+
+export { eManGet, eManLink, lookup, siteDetails, siteExist };
