@@ -2,17 +2,11 @@
   "name": "haztrak",
   "version": "1.0.3",
   "description": "Easily integrate web applications with the EPA e-Manifest system and RCRAInfo",
-  "main": "./build/main.js ",
-  "scripts": {
-    "test": "mocha",
-    "build": "rollup -c",
-    "prepare": "husky install",
-    "semantic-release": "semantic-release"
-  },
+  "main": "./lib/haztrak.js ",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dpgraham4401/hazTrak.git"
+    "url": "https://github.com/dpgraham4401/haztrak.git"
   },
   "keywords": [
     "e-Manifest",
@@ -25,9 +19,9 @@
   "author": "David Graham",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dpgraham4401/hazTrak/issues"
+    "url": "https://github.com/dpgraham4401/haztrak/issues"
   },
-  "homepage": "https://github.com/dpgraham4401/hazTrak",
+  "homepage": "https://github.com/dpgraham4401/haztrak",
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^8.6.0"
@@ -52,28 +46,40 @@
     "rollup": "^2.47.0",
     "semantic-release": "^17.4.3"
   },
+  "scripts": {
+    "test": "mocha",
+    "build": "rollup -c",
+    "prepare": "husky install",
+    "semantic-release": "semantic-release"
+  },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "release": {
-      "plugin": [
-          "@semantic-release/commit-analyzer",
-          "@semantic-release/release-notes-generator",
-          [
-              "@semantic-release/changelog",
-              {
-                  "changelogFile": "docs/CHANGELOG.md"
-              }
-          ],
-          "@semantic-release/npm",
-          ["@semantic-release/github", {
-              "assets": [
-                  {"path": "./package.json", "label": "package.json"}
-              ]
-          }]
+    "plugin": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "docs/CHANGELOG.md"
+        }
       ],
-      "branch": "master"
+      "@semantic-release/npm",
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            {
+              "path": "./package.json",
+              "label": "package.json"
+            }
+          ]
+        }
+      ]
+    ],
+    "branch": "master"
   }
 }

@@ -5,3 +5,4 @@ test
 rollup.config.js
 .eslintrc.json
 .github/
+commitlint.config.cjs

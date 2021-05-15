@@ -28,7 +28,11 @@ This packages aims to make using the e-Manifest API easier to consume. For addit
 ## Installation
 
 ```bash 
-  npm install haztrak
+  $ npm install haztrak
+```
+if running with NodeJS environment add the below to your package.json
+```javascript
+  {"type": "module"}
 ```
     
 ## Environment Variables
@@ -46,18 +50,18 @@ To run this project, you will need to add the following environment variables to
 
 ### Site Exist
 ```javascript
-import * as eMan from 'Rint'
+import * as haztrak from 'haztrak'
 
 const siteID = 'VATEST000001'
-const siteIdCheck = eMan.siteExist(siteID)
+const siteIdCheck = haztrak.siteExist(siteID)
 ```
 
 ### manifests UI link
 ```javascript
-import * as eMan from 'Rint'
+import * as haztrak from 'haztrak'
 
 const siteID = 'VATEST000001'
 const page   = 'BulkSign'
 const mtn    = ['000000001ELC', '000000002ELC', '000000003ELC']
-const siteIdCheck = eMan.eManLink(page, siteID, mtn)
+const siteIdCheck = haztrak.eManLink(page, siteID, mtn)
 ```

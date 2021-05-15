@@ -33,7 +33,7 @@ async function lookup (codes, stCode = 'CA') {
     const res = await eManAPI.get({
       url: codeUrl
     })
-    console.log(res.data)
+    // console.log(res.data)
     return res.data
   } catch (error) {
     console.error(error)
