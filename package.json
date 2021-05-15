@@ -2,7 +2,7 @@
   "name": "haztrak",
   "version": "1.0.3",
   "description": "Easily integrate web applications with the EPA e-Manifest system and RCRAInfo",
-  "main": "./dist/main.js ",
+  "main": "./build/main.js ",
   "scripts": {
     "test": "mocha",
     "build": "rollup -c",

@@ -5,7 +5,7 @@ import json from '@rollup/plugin-json'
 export default {
   input: './src/main.js',
   output: {
-    file: './build/hazTrak.js',
+    file: './build/haztrak.js',
     format: 'es',
     name: 'haztrak'
   },

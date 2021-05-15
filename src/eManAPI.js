@@ -4,7 +4,7 @@ import {} from 'dotenv/config'
 import axios from 'axios'
 
 const axiosGet = axios.create({
-  baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/',
+  baseURL: `${process.env.BASE_URL}`,
   method: 'get'
 })
 

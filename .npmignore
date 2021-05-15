@@ -1,2 +1,7 @@
 src
 test
+.env
+.husky/
+rollup.config.js
+.eslintrc.json
+.github/

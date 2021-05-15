@@ -41,6 +41,3 @@ async function lookup (codes, stCode = 'CA') {
 }
 
 export { lookup }
-
-// test area
-lookup('fed')
