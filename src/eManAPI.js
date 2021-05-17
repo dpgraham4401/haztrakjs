@@ -9,12 +9,12 @@ const axiosGet = axios.create({
 })
 
 const axiosPost = axios.create({
-  baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/',
+  baseURL: `${process.env.BASE_URL}`,
   method: 'post'
 })
 
 const axiosAuth = axios.create({
-  baseURL: 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api/v1/auth/',
+  baseURL: `${process.env.BASE_URL}`,
   method: 'get'
 })
 
@@ -39,7 +39,3 @@ axiosPost.interceptors.request.use(async function (config) {
 })
 
 export { axiosGet as get, axiosPost as post }
-
-// Testing area
-// const siteID  = 'VATEST000001';
-// const siteDate = getSiteExistInt(siteID)

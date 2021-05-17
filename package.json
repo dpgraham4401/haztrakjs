@@ -2,7 +2,8 @@
   "name": "haztrak",
   "version": "1.0.3",
   "description": "Easily integrate web applications with the EPA e-Manifest system and RCRAInfo",
-  "main": "./lib/haztrak.js ",
+  "main": "./index.js ",
+  "exports": "./index.js",
   "type": "module",
   "repository": {
     "type": "git",
@@ -64,7 +65,7 @@
       [
         "@semantic-release/changelog",
         {
-          "changelogFile": "docs/CHANGELOG.md"
+          "changelogFile": "./docs/CHANGELOG.md"
         }
       ],
       "@semantic-release/npm",

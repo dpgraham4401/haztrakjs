@@ -1,2 +1,3 @@
-export { * as haztrak } from './lib/haztrak.js'
+import * as haztrak from './lib/haztrak.js'
 
+export { haztrak }

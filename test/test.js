@@ -1,5 +1,5 @@
 // test.js
-import * as haztrak from '../lib/haztrak.js'
+import * as haztrak from '../index.js'
 
 // Site exist
 describe('Site Exist', function () {
