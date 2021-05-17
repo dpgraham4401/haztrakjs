@@ -1,3 +1,3 @@
-import * as haztrak from './lib/haztrak.js'
+import { eManGet, eManLink, lookup, siteExist, siteDetails } from './lib/haztrak.js'
 
-export { haztrak }
+export default { siteExist, siteDetails, eManLink, eManGet, lookup }
