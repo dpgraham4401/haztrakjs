@@ -10,7 +10,7 @@
 
 
 ## Still in alpha phase!!!
-
+The API on this package is liable to break w/o warning on a regular basis for the time being
 
 ## Table of Contents
   - [Intro](#Intro)
@@ -36,30 +36,51 @@ haztrak uses ES6 module syntax, see [Node's doc](https://nodejs.org/api/packages
 
 ## Environment Variables
 To run this project, you will need to add the following environment variables to your .env file
+see the  [e-Manifest doc](https://github.com/USEPA/e-manifest/blob/master/Services-Information/e-Manifest%20Authenticate%20Get%20and%20Lookup%20Services%20v6.3.pdf) for details
 
-`BASE_URL` RCRAInfo or PreProd baseURL [see e-Manifest doc](https://github.com/USEPA/e-manifest/blob/master/Services-Information/e-Manifest%20Authenticate%20Get%20and%20Lookup%20Services%20v6.3.pdf)
+`BASE_URL` RCRAInfo or PreProd baseURL
 
 `RCRAINFO_API_ID`
 
 `RCRAINFO_API_KEY`
 
-  
+Note: you'll need Site Manager level access to at least one EPA ID to get an API ID/key
 ## Examples
 
-### Site Exist
+
+#### Site Exist and Site Details
 ```javascript
-import * as haztrak from 'haztrak'
+import haztrak from 'haztrak'
 
 const siteID = 'VATEST000001'
 const siteIdCheck = haztrak.siteExist(siteID)
+
+const siteInfo = haztrak.siteDetails(siteID)
 ```
 
-### manifests UI link
+
+#### manifests UI link
 ```javascript
-import * as haztrak from 'haztrak'
+import haztrak from 'haztrak'
 
 const siteID = 'VATEST000001'
 const page   = 'BulkSign'
 const mtn    = ['000000001ELC', '000000002ELC', '000000003ELC']
 const siteIdCheck = haztrak.eManLink(page, siteID, mtn)
 ```
+
+
+#### RCRAInfo Lookup services
+```javascript
+import haztrak from 'haztrak'
+
+denCities = haztrak.lookup('den')
+````
+haztrak.lookup accepts one of the below string
+  - ```'den'```   &rarr; Density code
+  - ```'form'```  &rarr; Form Codes
+  - ```'source'```&rarr; Source Code
+  - ```'state'``` &rarr; State waste codes
+  - ```'fed'```   &rarr; Federal Waste Codes
+  - ```'min'```   &rarr; Waste minimization codes
+  - ```'ports'``` &rarr; Ports of entry
