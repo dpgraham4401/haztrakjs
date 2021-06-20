@@ -26,4 +26,4 @@ async function lookup (codes) {
 export { lookup }
 
 // test area
-lookup('den')
+// lookup('den')
