@@ -84,3 +84,27 @@ haztrak.lookup accepts one of the below string
   - ```'fed'```   &rarr; Federal Waste Codes
   - ```'min'```   &rarr; Waste minimization codes
   - ```'ports'``` &rarr; Ports of entry
+
+
+
+#### e-Manifest Lookup services
+```javascript
+import haztrak from 'haztrak'
+
+shippingNames = haztrak.eManLookup('name')
+````
+haztrak.eMaLlookup accepts one of the below string
+  - ```'name'```      &rarr; DOT shipping name
+  - ```'id'```        &rarr; DOT ID number
+  - ```'haz'```       &rarr; DOT hazard classes
+  - ```'pack'```      &rarr; DOT packing groups
+  - ```'num-suffix'```   &rarr; Printed manifest tracking number (MTN) suffixes
+  - ```'num-suffix-all'```   &rarr; All manifest tracking number (MTN) suffixes
+  - ```'cont'```      &rarr; Container types
+  - ```'uom'```       &rarr; Quantity Units of Measurement
+  - ```'load'```      &rarr; Polychlorinated biphynal (PCB) load types
+  - ```'haz-filt'```  &rarr; Get DOT hazard class(es) by DOT shipping name and id number
+  - ```'pack-filt'``` &rarr; Get DOT packing group(s) by DOT shipping name and id number
+  - ```'id-filt'```   &rarr; DOT Id Numbers by DOT Proper Shipping name
+  - ```'name-filt'``` &rarr; DOT Proper Shipping names by DOT Id Number
+

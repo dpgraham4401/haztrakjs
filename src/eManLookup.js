@@ -5,7 +5,7 @@ import * as eManAPI from './eManAPI.js'
 /**
  * Lookup for e-Manifest related codes
  *
- * @param {string} codes dot, id, haz, pack, num-suffix, num-siffix-all, cont, uom, load, haz-filt, pack-filt,name-filt, or id-filt
+ * @param {string} codes name, id, haz, pack, num-suffix, num-siffix-all, cont, uom, load, haz-filt, pack-filt,name-filt, or id-filt
  * @param {string} shippingName possibles values from codes='dot'
  * @param {string} idNumber possibles values from codes='id'
  * */
@@ -13,7 +13,7 @@ async function eManLookup (codes, shippingName, idNumber) {
   try {
     let codeUrl = ''
     switch (codes) {
-      case 'dot':
+      case 'name':
         codeUrl = '/emanifest/lookup/proper-shipping-names'
         break
       case 'id':
