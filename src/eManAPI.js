@@ -14,28 +14,30 @@ const axiosPost = axios.create({
 })
 
 const axiosAuth = axios.create({
-  baseURL: `${process.env.BASE_URL}`,
+  baseURL: `${process.env.BASE_URL}auth/`,
   method: 'get'
 })
 
 axiosGet.interceptors.request.use(async function (config) {
   const response = await axiosAuth({
-    url: `./${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
+    url: `${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
   })
   config.headers.Authorization = 'Bearer ' + response.data.token
   return config
 }, function (error) {
-  console.log(error)
+  console.error(error.message)
+  console.error(error.response.data)
 })
 
 axiosPost.interceptors.request.use(async function (config) {
   const response = await axiosAuth({
-    url: `./${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
+    url: `${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
   })
   config.headers.Authorization = 'Bearer ' + response.data.token
   return config
 }, function (error) {
-  console.log(error)
+  console.error(error.message)
+  console.error(error.response.data)
 })
 
 export { axiosGet as get, axiosPost as post }

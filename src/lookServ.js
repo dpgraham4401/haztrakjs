@@ -36,7 +36,8 @@ async function lookup (codes, stCode = 'CA') {
     // console.log(res.data)
     return res.data
   } catch (error) {
-    console.error(error)
+    console.error(error.message)
+    console.error(error.response.data)
   }
 }
 

@@ -46,7 +46,8 @@ async function eManLink (page = 'Dashboard', siteID, mtn) {
       return resUiLink.data
     }
   } catch (error) {
-    console.error(error)
+    console.error(error.message)
+    console.error(error.response.data)
   }
 }
 

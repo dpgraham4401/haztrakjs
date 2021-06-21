@@ -15,7 +15,8 @@ async function siteDetails (siteID) {
     // console.log(siteRes.data)
     return siteRes.data
   } catch (error) {
-    console.error(error)
+    console.error(error.message)
+    console.error(error.response.data)
   }
 }
 
@@ -32,7 +33,9 @@ async function siteExist (siteID) {
     // console.log(siteRes.data)
     return siteRes.data
   } catch (error) {
-    console.error(error)
+    console.error(error.request)
+    console.error(error.message)
+    console.error(error.response.data)
   }
 }
 
@@ -52,7 +55,8 @@ async function siteSearch () {
     })
     console.log(siteRes.data)
   } catch (error) {
-    console.error(error)
+    console.error(error.message)
+    console.error(error.response.data)
   }
 }
 

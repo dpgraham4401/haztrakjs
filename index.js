@@ -1,3 +1,3 @@
-import { eManGet, eManLink, lookup, siteExist, siteDetails } from './lib/haztrak.js'
+import { eManGet, eManLink, lookup, siteExist, siteDetails, eManLookup } from './lib/haztrak.js'
 
-export default { siteExist, siteDetails, eManLink, eManGet, lookup }
+export default { siteExist, siteDetails, eManLink, eManGet, lookup, eManLookup }

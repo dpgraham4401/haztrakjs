@@ -47,3 +47,10 @@ describe('Lookup density', function () {
     haztrak.lookup('den')
   })
 })
+
+// e-Manifest Lookup Services
+describe('e-Manifest Lookup', function () {
+  it('returns array DOT names', function () {
+    haztrak.eManLookup('name')
+  })
+})

@@ -32,13 +32,10 @@ async function eManGet (mtn, attachments = 0) {
     }
     // console.log(res.data)
   } catch (error) {
-    console.error(error)
+    console.error('Error(getting manifest data)')
+    console.error(error.message)
+    console.error(error.response.data)
   }
 }
 
 export { eManGet }
-
-// Testing Area
-// const mtn = '100024721ELC'
-// const attachments = 0
-// eManGet(mtn, attachments)
