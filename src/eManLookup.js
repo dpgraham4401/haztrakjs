@@ -11,21 +11,22 @@ import * as eManAPI from './eManAPI.js'
  * */
 async function eManLookup (codes, shippingName, idNumber) {
   try {
+    codes = codes.toUpperCase()
     let codeUrl = ''
     switch (codes) {
-      case 'name':
+      case 'NAME':
         codeUrl = '/emanifest/lookup/proper-shipping-names'
         break
-      case 'id':
+      case 'ID':
         codeUrl = '/emanifest/lookup/id-numbers'
         break
-      case 'haz':
+      case 'HAZ':
         codeUrl = '/emanifest/lookup/hazard-classes'
         break
-      case 'pack':
+      case 'PACK':
         codeUrl = '/emanifest/lookup/packing-groups'
         break
-      case 'haz-filt':
+      case 'HAZ-FILT':
         if (arguments.length === 3) {
           codeUrl = '/emanifest/lookup/hazard-class-by-shipping-name-id-number/' +
             shippingName + '/' + idNumber
@@ -33,7 +34,7 @@ async function eManLookup (codes, shippingName, idNumber) {
           throw new Error('haz-filt argument requires shippingName and idNumber arguments')
         }
         break
-      case 'pack-filt':
+      case 'PACK-FILT':
         if (arguments.length === 3) {
           codeUrl = '/emanifest/lookup/packing-group-by-shipping-name-id-number/' +
             shippingName + '/' + idNumber
@@ -41,33 +42,33 @@ async function eManLookup (codes, shippingName, idNumber) {
           throw new Error('pack-filt argument requires shippingName (dot) and idNumber (id) arguments')
         }
         break
-      case 'id-filt':
+      case 'ID-FILT':
         if (arguments.length >= 2) {
           codeUrl = '/emanifest/lookup/id-numbers-by-shipping-name/' + shippingName
         } else {
           throw new Error('id-filt argument requires shippingName argument [2]')
         }
         break
-      case 'name-filt':
+      case 'NAME-FILT':
         if (arguments.length >= 2) {
           codeUrl = '/emanifest/lookup/proper-shipping-names-by-id-number/' + idNumber
         } else {
           throw new Error('name-filt argument requires shippingName argument [2]')
         }
         break
-      case 'num-suffix':
+      case 'NUM-SUFFIX':
         codeUrl = '/emanifest/lookup/printed-tracking-number-suffixes'
         break
-      case 'num-suffix-all':
+      case 'NUM-SUFFIX-ALL':
         codeUrl = '/emanifest/lookup/printed-tracking-number-suffixes-ALL'
         break
-      case 'cont':
+      case 'CONT':
         codeUrl = '/emanifest/lookup/container-type'
         break
-      case 'uom':
+      case 'UOM':
         codeUrl = '/emanifest/lookup/quantity-uom'
         break
-      case 'load':
+      case 'LOAD':
         codeUrl = '/emanifest/lookup/load-types'
         break
       default:

@@ -9,8 +9,9 @@ import * as eManAPI from './eManAPI.js'
  * @param {string} mtn manifest tracking number
  * @param {boolean} attachments [1] get zip files [0] just JSON
  * */
-async function eManGet (mtn, attachments = 0) {
+async function eManGet (mtn, attachments = false) {
   try {
+    mtn = mtn.toUpperCase()
     if (attachments) {
       // const res = await eManAPI.get({
       //   url: `/emanifest/manifest/${mtn}/attachments`,
