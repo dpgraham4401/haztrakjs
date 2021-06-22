@@ -14,8 +14,7 @@ import * as eManAPI from './eManAPI.js'
 async function eManLink (page = 'Dashboard', siteID, mtn) {
   try {
     if (page.length > 5) {
-      // eslint-disable-next-line eqeqeq
-      if (page.toUpperCase() == 'BULKSIGN') {
+      if (page.toUpperCase() === 'BULKSIGN') {
         page = 'BulkSign'
       } else {
         page = 'Dashboard'

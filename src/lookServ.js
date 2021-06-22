@@ -5,30 +5,45 @@ import * as eManAPI from './eManAPI.js'
 /**
  * Lookup for RCRAInfo codes
  *
- * @param {string} den, min, port, form, source, state, fed, or mngt
+ * @param {string} codes den, min, port, form, source, state, fed, or mngt
  * */
-async function lookup (codes, stCode = 'CA') {
+async function lookup (codes, stateCode = 'CA') {
   try {
+    codes = codes.toUpperCase()
     let codeUrl = ''
-    // if (typeof (codes) !== 'string') {
-    //  throw new Error('code type must be string')
-    // }
-    if (codes === 'den') {
-      codeUrl = '/lookup/density-uom'
-    } else if (codes === 'form') {
-      codeUrl = '/lookup/form-codes'
-    } else if (codes === 'source') {
-      codeUrl = '/lookup/source-codes'
-    } else if (codes === 'state') {
-      codeUrl = `/lookup/state-waste-codes/${stCode}`
-    } else if (codes === 'fed') {
-      codeUrl = 'lookup/federal-waste-codes'
-    } else if (codes === 'min') {
-      codeUrl = 'lookup/waste-minimization-codes'
-    } else if (codes === 'ports') {
-      codeUrl = 'lookup/ports-of-entry'
-    } else {
-      throw new Error('unknown code url')
+    switch (codes) {
+      case 'DEN':
+        codeUrl = '/lookup/density-uom'
+        break
+      case 'FORM':
+        codeUrl = '/lookup/form-codes'
+        break
+      case 'SOURCE':
+        codeUrl = '/lookup/source-codes'
+        break
+      case 'STATE':
+        if (arguments.length === 2) {
+          codeUrl = `/lookup/state-waste-codes/${stateCode}`
+        } else {
+          console.error('state waste code requires 2 arguments')
+          throw new Error('Unknown stateCode')
+        }
+        break
+      case 'FED':
+        codeUrl = '/lookup/federal-waste-codes'
+        break
+      case 'MNGT':
+        codeUrl = '/lookup/management-method-codes'
+        break
+      case 'MIN':
+        codeUrl = '/lookup/waste-minimization-codes'
+        break
+      case 'PORT':
+        codeUrl = '/lookup/ports-of-entry'
+        break
+      default:
+        console.error("'try'  'den', 'min', 'port', 'form', 'source', 'state', 'fed', or 'mngt'")
+        throw new Error('Unkown lookup code')
     }
     const res = await eManAPI.get({
       url: codeUrl
