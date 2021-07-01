@@ -1,4 +1,5 @@
-// Use the Preprod API to get RCRAInfo/e-Manifest data
+// Axios interceptors
+// Needs to be completely refactored
 
 import {} from 'dotenv/config'
 import axios from 'axios'
@@ -18,26 +19,58 @@ const axiosAuth = axios.create({
   method: 'get'
 })
 
+const axiosDelete = axios.create({
+  baseURL: `${process.env.BASE_URL}`,
+  method: 'delete'
+})
+
+const axiosPut= axios.create({
+  baseURL: `${process.env.BASE_URL}`,
+  method: 'put'
+})
+
 axiosGet.interceptors.request.use(async function (config) {
-  const response = await axiosAuth({
+  const res = await axiosAuth({
     url: `${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
   })
-  config.headers.Authorization = 'Bearer ' + response.data.token
+  config.headers.Authorization = 'Bearer ' + res.data.token
   return config
 }, function (error) {
   console.error(error.message)
-  console.error(error.response.data)
+  console.error(error.res.data)
 })
 
 axiosPost.interceptors.request.use(async function (config) {
-  const response = await axiosAuth({
+  const res = await axiosAuth({
     url: `${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
   })
-  config.headers.Authorization = 'Bearer ' + response.data.token
+  config.headers.Authorization = 'Bearer ' + res.data.token
   return config
 }, function (error) {
   console.error(error.message)
-  console.error(error.response.data)
+  console.error(error.res.data)
 })
 
-export { axiosGet as get, axiosPost as post }
+axiosDelete.interceptors.request.use(async function (config) {
+  const res = await axiosAuth({
+    url: `${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
+  })
+  config.headers.Authorization = 'Bearer ' + res.data.token
+  return config
+}, function (error) {
+  console.error(error.message)
+  console.error(error.res.data)
+})
+
+axiosPut.interceptors.request.use(async function (config) {
+  const res = await axiosAuth({
+    url: `${process.env.RCRAINFO_API_ID}/${process.env.RCRAINFO_API_KEY}`
+  })
+  config.headers.Authorization = 'Bearer ' + res.data.token
+  return config
+}, function (error) {
+  console.error(error.message)
+  console.error(error.res.data)
+})
+
+export { axiosGet as get, axiosPost as post, axiosDelete as delete, axiosPut as put }

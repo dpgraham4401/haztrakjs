@@ -9,3 +9,7 @@ build/hazTrak.js
 
 #Src
 src/test.js
+src/exampleMan.json
+
+#text files
+*.txt

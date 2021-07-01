@@ -1,5 +1,6 @@
 // test.js
 import haztrak from '../index.js'
+import fs from 'fs'
 
 // Site exist
 describe('Site Exist', function () {
@@ -37,7 +38,23 @@ describe('e-Manifest GET', function () {
   it('request manifest data (JSON)', function () {
     const mtn = '100031335ELC'
     const attachment = 0
-    haztrak.eManGet(mtn, attachment)
+    haztrak.eMan.get(mtn, attachment)
+    // Get(mtn, attachment)
+  })
+})
+
+// Save manifest
+describe('e-Manifest Save', function () {
+  it('Save new electronic manifest', function () {
+    fs.readFile('./exampleMan.json', 'utf8', async (err, data) => {
+      if (err) {
+        // console.log('Error reading file:')
+      } else {
+        let manifest = JSON.parse(data)
+        manifest = JSON.stringify(manifest)
+        haztrak.eMan.save(manifest)
+      }
+    })
   })
 })
 

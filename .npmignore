@@ -6,3 +6,6 @@ rollup.config.js
 .eslintrc.json
 .github/
 commitlint.config.cjs
+.gitignore
+ToDo.md
+*.txt
