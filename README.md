@@ -16,9 +16,12 @@ The API on this package is liable to break w/o warning on a regular basis for th
   - [Intro](#Intro)
   - [Installation](#installation)
   - [Environment Variables](#environment-variables)
-  - [Example](#examples)
-    - [Site Exist](#site-exist)
+  - [Examples](#examples)
+    - [Site Services](#site-services)
     - [Manifest UI Link](#manifests-ui-link)
+    - [RCRAInfo Lookup Services](#rcrainfo-lookup)
+    - [e-Manifest Lookup Services](#e-manifest-lookup)
+  - [License](#license)
 
 ## Intro
 This packages aims to make using the e-Manifest API easier to consume. For additional information about e-Manifest, check out the below links
@@ -26,12 +29,14 @@ This packages aims to make using the e-Manifest API easier to consume. For addit
   - [RCRAifno PreProduction](https://rcrainfopreprod.epa.gov)
   - [USEPA/e-Manifest Github](https://github.com/USEPA/e-manifest)
   - [About e-Manifest](https://www.epa.gov/e-manifest)
+  
+  All haztrak functions are asynchronous  
 
 ## Installation
 ```bash 
   $ npm install haztrak
 ```
-haztrak uses ES6 module syntax, see [Node's doc](https://nodejs.org/api/packages.html#packages_modules_packages) 
+haztrak uses ES6 module syntax, see [Node's doc](https://nodejs.org/api/packages.html#packages_modules_packages) for more information.
 
 
 ## Environment Variables
@@ -48,33 +53,48 @@ Note: you'll need Site Manager level access to at least one EPA ID to get an API
 ## Examples
 
 
-#### Site Exist and Site Details
+#### Site Services
 ```javascript
 import haztrak from 'haztrak'
 
-const siteID = 'VATEST000001'
-const siteIdCheck = haztrak.siteExist(siteID)
-
-const siteInfo = haztrak.siteDetails(siteID)
+const foobar = async () => {
+  const siteID = 'VATEST000001'
+  const siteIdCheck = await haztrak.siteExist(siteID)
+  const siteInfo = await haztrak.siteDetails(siteID)
+}
 ```
-
-
 #### manifests UI link
+Returns a hyperlink to view or sign manifest(s) in RCRAinfo as the specified facility
+
+See [ToDo.md](ToDo.md) for future changes to api
 ```javascript
 import haztrak from 'haztrak'
 
-const siteID = 'VATEST000001'
-const page   = 'BulkSign'
-const mtn    = ['000000001ELC', '000000002ELC', '000000003ELC']
-const siteIdCheck = haztrak.eManLink(page, siteID, mtn)
+const foobar = async () => {
+  const siteID = 'VATEST000001'
+  const page   = 'BulkSign'
+  const mtn    = ['000000001ELC', '000000002ELC', '000000003ELC']
+  const siteIdCheck = await haztrak.eManLink(page, siteID, mtn)
+}
 ```
+'page' argument options include
 
+```'BulkSign'``` &rarr; Sign/Certify all manifest in the array
+```'DashBoard'``` &rarr; link to the e-Manifest dashboard
+```'BulkQuickSign'```&rarr; Quick sign all manifests in the array (mtn)
+```'Edit'```&rarr; 
+```'View'```&rarr;
+```'Sign'```&rarr;
 
-#### RCRAInfo Lookup services
+only 1 MTN allowed for Edt, View, or Sign
+
+#### RCRAInfo Lookup
 ```javascript
 import haztrak from 'haztrak'
 
-denCities = haztrak.lookup('den')
+const foo = async () => {
+  const denCities = await haztrak.lookup('den')
+}
 ````
 haztrak.lookup accepts one of the below string
   - ```'den'```   &rarr; Density code
@@ -85,15 +105,22 @@ haztrak.lookup accepts one of the below string
   - ```'min'```   &rarr; Waste minimization codes
   - ```'ports'``` &rarr; Ports of entry
 
+#### e-Manifest Lookup
 
+haztrak.eMaLlookup accepts one of the below strings. Parameters with 'filt require additional arguements 
 
-#### e-Manifest Lookup services
+This will change to an object in version 2.0. See [ToDo.md](ToDo.md)
 ```javascript
 import haztrak from 'haztrak'
 
-shippingNames = haztrak.eManLookup('name')
+const foo = async () => {
+  const shippingNames = await haztrak.eManLookup('name')
+  console.log(shippingNames)
+
+  const hazClass = await haztrak.eManLookup('haz-filt', 'Acetal', 'UN1088')
+  console.log(hazClass) 
+}
 ````
-haztrak.eMaLlookup accepts one of the below string
   - ```'name'```      &rarr; DOT shipping name
   - ```'id'```        &rarr; DOT ID number
   - ```'haz'```       &rarr; DOT hazard classes
@@ -108,3 +135,5 @@ haztrak.eMaLlookup accepts one of the below string
   - ```'id-filt'```   &rarr; DOT Id Numbers by DOT Proper Shipping name
   - ```'name-filt'``` &rarr; DOT Proper Shipping names by DOT Id Number
 
+## License
+haztrak is licensed under the terms of the [MIT license](LICENSE.md)
