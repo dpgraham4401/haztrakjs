@@ -32,6 +32,28 @@ async function eManGet (mtn, attachments = false) {
 }
 
 /**
+ * Delete manifests when allowed
+ *
+ * @param {string} mtn manifest tracking number
+ * */
+async function eManDel (mtn) {
+  try {
+    mtn = mtn.toUpperCase()
+    const res = await eManAPI.delete({
+      url: `/emanifest/manifest/delete/${mtn}`,
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.error('Problem getting manifest')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
+/**
   * Save manifest with JSON and optional zip attachment
   *
   * @param {string} mtnJson manifest object
@@ -61,4 +83,4 @@ async function eManSave (mtnJson, path) {
   }
 }
 
-export { eManGet as get, eManSave as save }
+export { eManGet as get, eManSave as save, eManDel as delete }
