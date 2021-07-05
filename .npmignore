@@ -9,3 +9,4 @@ commitlint.config.cjs
 .gitignore
 ToDo.md
 *.txt
+*.bak
