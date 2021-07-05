@@ -4,12 +4,12 @@
 # Node Modules 
 node_modules/
 
-# Distrobution Files
-build/hazTrak.js
-
-#Src
+# Src
 src/test.js
 src/exampleMan.json
 
-#text files
+# text files
 *.txt
+
+# Backup files
+*.bak
