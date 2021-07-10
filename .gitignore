@@ -6,10 +6,8 @@ node_modules/
 
 # Src
 src/test.js
-src/exampleMan.json
+src/example*
 
-# text files
 *.txt
-
-# Backup files
 *.bak
+*.zip
