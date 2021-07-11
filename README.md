@@ -25,7 +25,7 @@ The API on this package is liable to break w/o warning on a regular basis for th
 	- [Get](#get)
 	- [Save](#save)
 	- [Delete](#delete)
-  - [To do](#todo)
+  - [Contributing](#contributing)
   - [License](#license)
 
 ## Intro
@@ -83,7 +83,7 @@ const foobar = async () => {
 #### manifests UI link
 Returns a hyperlink to view or sign manifest(s) in RCRAinfo as the specified facility
 
-See [ToDo.md](ToDo.md) for future changes to api
+See [ToDo.md](./docs/ToDo.md) for future changes to api
 ```javascript
 import haztrak from 'haztrak'
 
@@ -126,7 +126,7 @@ haztrak.lookup accepts one of the below string
 
 haztrak.eMaLlookup accepts one of the below strings. Parameters with filt require additional arguements 
 
-This will change to an object in version 2.0. See [ToDo.md](ToDo.md)
+This will change to an object in version 2.0. See [ToDo.md](./docs/ToDo.md)
 ```javascript
 import haztrak from 'haztrak'
 
@@ -201,8 +201,8 @@ const testDel = async () => {
 testDel()
 
 ```
-## To Do
-For more information about upcoming changes, the status of haztrak or looking to contribute, see the [ToDo](ToDo.md) page.
+## Contributing
+For more information about upcoming changes, the status of haztrak or looking to contribute, see the [Contributing](./docs/CONTRIBUTING.md) and  [ToDo](./docs/ToDo.md) page.
 
 ## License
 haztrak is licensed under the terms of the [MIT license](LICENSE.md)
