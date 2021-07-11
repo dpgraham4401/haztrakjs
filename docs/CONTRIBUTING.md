@@ -6,45 +6,62 @@ Welcome to [haztrak](https://github.com/dpgraham4401/haztrak)! Before sending yo
 
 ## Contributing
 
-### Contributor
-
-We are very happy that you consider implementing algorithms and data structures for others! This repository is referenced and used by learners from around the globe. Being one of our contributors, you agree and confirm that:
-
+We are very happy that you consider making e-Manifest easier to use! Being one of our contributors, you agree and confirm that:
 - You did your work - plagiarism is not allowed.
   - Any plagiarized work will not be merged.
 - Your work will be distributed under the [MIT](../LICENSE.md) once your pull request is merged
 - Your submitted work must fulfill our styles and standards
 
-**New implementation** is welcome! For example, new solutions to a problem, different representations of a graph data structure or algorithm designs with different complexity.
+**New implementation** is welcome! For example, refactoring, new solutions to a problem, different representations of outputs
 
-**Improving comments** and **writing proper tests** are also highly welcome.
+**Improving documentation** and **writing good tests** are also highly welcome.
 
 ### Contribution
 
-We appreciate any contribution, from fixing grammar mistakes to implementing 
-complex algorithms. Please read this section if you are contributing to your work.
+We appreciate any contribution, please read this section if you are contributing to your work.
 
-
-If you submit a pull request that resolves an open issue, please help us 
+~~If you submit a pull request that resolves an open issue, please help us 
 to keep our issue list small by adding `fixes: #{$ISSUE_NO}` to your 
-commit message. GitHub will use this tag to auto-close the issue if your PR is merged.
+commit message. GitHub will use this tag to auto-close the issue if your PR is merged.~~
 
-#### What is an haztrak?
+### What is an haztrak?
 
-Simply put, haztrak is a package that helps users consume the e-Manifest API.
-We're open to anything that does that, but as of now, this project is developed
-by volunteers, just keep that in mind.
+Simply put, haztrak is a package that helps users consume the EPA 
+[e-Manifest](https://www.epa.gov/e-manifest) API. We're open to anything that forwards that goal. 
+Just keep in mind, this project is developed by volunteers.
 
-haztrak abides by K.I.S.S. Keep it simple. but nothing is off limits, please
-feel free to contribute to the code base, documentation, anything.
+### Getting started
+haztrak uses ECMAScript 6 syntax, including import/export, which became a core feature of node 13.2, if you have the LTS version of node or greater, you're set. And of course, [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/).
+```bash
+  $ node -v
+  $ npm -v
+```
+clone the repo and install the development dependencies.
+```bash
+  $ git clone https://github.com/dpgraham4401/haztrak
+  $ cd haztrak
+  $ npm install
+```
+which will install a ton of npm packages.
 
+Take a look at the coding style section below, if you're using vscode or another text editor outside of vim/nvim, consider a linter to enforce code style.
 
-#### File Naming Convention
+haztrak also uses [semantic releases](https://semantic-release.gitbook.io/semantic-release/) to automatically build and publish/release. your commits need to follow semantic release syntax, e.g.
+```bash
+  $ git commit -m "feat: new feature"
+  $ git commit -m "docs: update to README.md"
+```
+commits with the ```fix:```, ```feat:```, or ```BREAKING CHANGE:``` prefix will trigger the GitHub CI environment which will automatically build, update the release version, and publish to the [npm registry](https://www.npmjs.com/package/haztrak).
+
+haztrak uses [rollup](https://www.rollupjs.org/guide/en/), everything is
+bundled via the `src/main.js`, and everything is made public from `./index.js`
+
+### File Naming Convention
   - filenames should use the UpperCamelCase (PascalCase) style.
   - There should be no spaces in filenames.
  **Example:**`UserProfile.js` is allowed but `userprofile.js`,`Userprofile.js`,`user-Profile.js`,`userProfile.js` are not
 
-#### Testing
+### Testing
 
 Be confident that your code works.
 haztrak uses [mocha](https://mochajs.org/) to test run the codebase. 
@@ -52,15 +69,7 @@ If addingnew functionality, please include new mocha testing so we still have
 good dry run coverage. Don't let this scare you away, mocha has great documentation
 and is easy to set up.
 
-#### Other
-
-haztrak uses [rollup](https://www.rollupjs.org/guide/en/), everything is
-bundled via the `src/main.js`, and everything is made public from `./index.js`
-
-haztrak also uses a CI environment with GitHub actions rollup changes in the CI 
-before publishing to the npm registry where our users download from
-
-#### Coding Style
+### Coding Style
 
 To maximize the readability and correctness of our code, we require that 
 new submissions follow [JavaScript Standard Style](https://standardjs.com/)
@@ -70,11 +79,11 @@ new submissions follow [JavaScript Standard Style](https://standardjs.com/)
   - we understand you may prefer a less involved process such 
 as the [Standardjs linter](https://standardjs.com/)
   - Command to  install JavaScript Standard Style
-    ```
+    ```bash
     $ npm install standard --save-dev
     ```
   - Usage
-    ```
+    ```bash
     $ standard MyFile.js  // if that fails, try: npx standard MyFile.js
     ```
 
