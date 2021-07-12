@@ -83,7 +83,7 @@ const foobar = async () => {
 #### manifests UI link
 Returns a hyperlink to view or sign manifest(s) in RCRAinfo as the specified facility
 
-See [ToDo.md](ToDo.md) for future changes to api
+See [ToDo.md](./docs/ToDo.md) for future changes to api
 ```javascript
 import haztrak from 'haztrak'
 
