@@ -170,4 +170,27 @@ async function siteMtn (siteId) {
   }
 }
 
-export { eManGet as get, eManSave as save, eManDel as delete, eManSites as sites, mtnExists as exists, siteMtn }
+/**
+ * Revert manifest under correction to previous version
+ *
+ * @param {string} mtn manifest tracking number (MTN)
+ * */
+async function eManRevert (mtn) {
+  try {
+    const res = await eManAPI.get({
+      url: `/emanifest/manifest/revert/${mtn}`,
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.error(`Problem reverting ${mtn}`)
+    console.error(error.message)
+  }
+}
+
+export {
+  eManGet as get, eManSave as save, eManDel as delete,
+  eManSites as sites, mtnExists as exists, siteMtn, eManRevert as revert
+}
