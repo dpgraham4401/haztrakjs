@@ -34,7 +34,7 @@ async function eManGet (mtn, attachments = false) {
     // console.log(res.data)
   } catch (error) {
     console.error('Problem getting manifest')
-    console.error(error.message)
+    console.error('error.essage ' + error.message)
     console.error(error.response.data)
   }
 }
@@ -130,4 +130,44 @@ async function eManSites (stateCode, siteType) {
   }
 }
 
-export { eManGet as get, eManSave as save, eManDel as delete, eManSites as sites }
+/**
+ * Check whether an manifest tracking number exists
+ *
+ * @param {string} mtn manifest tracking number
+ * */
+async function mtnExists (mtn) {
+  try {
+    const res = await eManAPI.get({
+      url: `/emanifest/manifest/mtn-exists/${mtn}`,
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.error('Problem testing if mtn exist')
+    console.error(error.message)
+  }
+}
+
+/**
+ * Get all manifest tracking number (MTN) for a given ID
+ *
+ * @param {string} siteId EPA id number
+ * */
+async function siteMtn (siteId) {
+  try {
+    const res = await eManAPI.get({
+      url: `/emanifest/manifest-tracking-numbers/${siteId}`,
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.error(`Problem getting the MTNs for ${siteId}`)
+    console.error(error.message)
+  }
+}
+
+export { eManGet as get, eManSave as save, eManDel as delete, eManSites as sites, mtnExists as exists, siteMtn }
