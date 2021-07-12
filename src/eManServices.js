@@ -103,4 +103,31 @@ async function eManSave (mtnJson, zipPath) {
   }
 }
 
-export { eManGet as get, eManSave as save, eManDel as delete }
+/**
+ * Get site-ids by state code and handler type
+ *
+ * @param {string} stateCode state code (e.g. MA, TX, VA)
+ * @param {boolean} siteType handler type (Generator, TSDF, Transporter)
+ * */
+async function eManSites (stateCode, siteType) {
+  try {
+    stateCode = stateCode.toUpperCase()
+    siteType = siteType.toUpperCase()
+    if (siteType !== 'GENERATOR' && siteType !== 'TRANSPORTER' && siteType !== 'TSDF') {
+      throw new Error('siteType must be Generator, tsdf, or transporter')
+    }
+    const res = await eManAPI.get({
+      url: `/emanifest/site-ids/${stateCode}/${siteType}`,
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.error('Problem getting sites')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
+export { eManGet as get, eManSave as save, eManDel as delete, eManSites as sites }
