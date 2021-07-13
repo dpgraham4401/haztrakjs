@@ -190,7 +190,62 @@ async function eManRevert (mtn) {
   }
 }
 
+/**
+ * Retrieve bill for provided bill id or date
+ *
+ * @param {object} bill billing object by ID or date
+ * @param {string} bill.billId invoice id number
+ * @param {string} bill.billingAccount billing account number
+ * @param {string} monthYear invoice month and year (mm/yyy)
+ * */
+async function eManBill (bill) {
+  try {
+    const billData = JSON.stringify(bill)
+    const res = await eManAPI.post({
+      url: '/emanifest/billing/bill',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'text/plain'
+      },
+      data: billData
+    })
+    return res.data
+  } catch (error) {
+    console.error('Problem retrieving bill')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
+/**
+ * Retrieve billing history by account ID
+ *
+ * @param {object} bill billing object by ID or date
+ * @param {string} bill.billingAccount billing account number
+ * @param {string} bill.startMonthYear start of invoice months and year (mm/yyy)
+ * @param {string} bill.endMonthYear end of invoice months and year (mm/yyy)
+ * */
+async function eManBillHistory (bill) {
+  try {
+    const billData = JSON.stringify(bill)
+    const res = await eManAPI.post({
+      url: '/emanifest/billing/bill-history',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'text/plain'
+      },
+      data: billData
+    })
+    return res.data
+  } catch (error) {
+    console.error('Problem retrieving bill history')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
 export {
   eManGet as get, eManSave as save, eManDel as delete,
-  eManSites as sites, mtnExists as exists, siteMtn, eManRevert as revert
+  eManSites as sites, mtnExists as exists, siteMtn,
+  eManRevert as revert, eManBill as bill, eManBillHistory as billHistory
 }
