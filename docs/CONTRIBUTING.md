@@ -16,13 +16,7 @@ We are very happy that you consider making e-Manifest easier to use! Being one o
 
 **Improving documentation** and **writing good tests** are also highly welcome.
 
-### Contribution
-
-We appreciate any contribution, please read this section if you are contributing to your work.
-
-~~If you submit a pull request that resolves an open issue, please help us 
-to keep our issue list small by adding `fixes: #{$ISSUE_NO}` to your 
-commit message. GitHub will use this tag to auto-close the issue if your PR is merged.~~
+We appreciate any contribution, please read this section if you are contributing.
 
 ### What is an haztrak?
 
@@ -44,22 +38,22 @@ clone the repo and install the development dependencies.
 ```
 which will install a ton of npm packages.
 
-Take a look at the coding style section below, if you're using vscode or another text editor outside of vim/nvim, consider a linter to enforce code style.
+Take a look at the coding style section below, if you're using vscode or another text editor outside of vim/nvim, consider a linter extension to enforce StandardJS code style.
 
 haztrak also uses [semantic releases](https://semantic-release.gitbook.io/semantic-release/) to automatically build and publish/release. your commits need to follow semantic release syntax, e.g.
 ```bash
   $ git commit -m "feat: new feature"
   $ git commit -m "docs: update to README.md"
 ```
-commits with the ```fix:```, ```feat:```, or ```BREAKING CHANGE:``` prefix will trigger the GitHub CI environment which will automatically build, update the release version, and publish to the [npm registry](https://www.npmjs.com/package/haztrak).
+commits with the ```fix:```, ```feat:```, or ```breaking change:``` prefix will trigger the GitHub CI environment when committed to the master branch which will automatically build, update the release version, and publish the new version to the [npm registry](https://www.npmjs.com/package/haztrak).
 
 haztrak uses [rollup](https://www.rollupjs.org/guide/en/), everything is
-bundled via the `src/main.js`, and everything is made public from `./index.js`
+bundled via the `./src/main.js`, and everything is made public from `./index.js`
 
 ### File Naming Convention
-  - filenames should use the UpperCamelCase (PascalCase) style.
+  - filenames should use the lowerCamelCase (PascalCase) style.
   - There should be no spaces in filenames.
- **Example:**`UserProfile.js` is allowed but `userprofile.js`,`Userprofile.js`,`user-Profile.js`,`userProfile.js` are not
+ **Example:**`userProfile.js` is allowed but `userprofile.js`,`Userprofile.js`,`user-Profile.js`,`UserProfile.js` are not
 
 ### Testing
 
