@@ -11,3 +11,4 @@ src/example*
 *.txt
 *.bak
 *.zip
+*.tar

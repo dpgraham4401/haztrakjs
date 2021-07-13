@@ -1,5 +1,6 @@
 src
 test
+docs
 .env
 .husky/
 rollup.config.js
@@ -7,6 +8,6 @@ rollup.config.js
 .github/
 commitlint.config.cjs
 .gitignore
-ToDo.md
 *.txt
 *.bak
+*.zip
