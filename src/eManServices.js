@@ -244,8 +244,40 @@ async function eManBillHistory (bill) {
   }
 }
 
+/**
+ * Search for manifests
+ *
+ * @param {object} searchObj object with search parameters
+ * @param {string} searchObj.stateCode state code
+ * @param {string} searchObj.siteId EPA/Site ID number
+ * @param {string} searchObj.Status Pending|Scheduled|InTransit|ReadyForSignature|Signed|SignedComplete|UnderCorrection|Corrected
+ * @param {string} searchObj.dateType CertifiedDate|RecievedDate|ShippedDate|UpdateDate
+ * @param {string} searchObj.siteType Generator|Tsdf|Transporter|RejectionInfo_AlternateTsdf
+ * @param {string} searchObj.startDate date type start
+ * @param {string} searchObj.endDate date type end
+ * */
+async function eManSearch (searchObj) {
+  try {
+    const searchData = JSON.stringify(searchObj)
+    const res = await eManAPI.post({
+      url: '/emanifest/search',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'text/plain'
+      },
+      data: searchData
+    })
+    return res.data
+  } catch (error) {
+    console.error('Problem searching for manifests')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
 export {
   eManGet as get, eManSave as save, eManDel as delete,
   eManSites as sites, mtnExists as exists, siteMtn,
-  eManRevert as revert, eManBill as bill, eManBillHistory as billHistory
+  eManRevert as revert, eManBill as bill,
+  eManBillHistory as billHistory, eManSearch as search
 }
