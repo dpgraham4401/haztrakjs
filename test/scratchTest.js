@@ -69,13 +69,25 @@ import haztrak from '../index.js'
 // }
 // testCorrectionDetails()
 
-const testSearch = async () => {
-  const searchCrit = {
-    stateCode: 'VA',
-    status: 'Pending',
-    siteType: 'Generator'
+// const testSearch = async () => {
+//   const searchCrit = {
+//     stateCode: 'VA',
+//     status: 'Pending',
+//     siteType: 'Generator'
+//   }
+//   const res = await haztrak.eMan.search(searchCrit)
+//   console.log(res)
+// }
+// testSearch()
+
+const testCorrection = async () => {
+  const version = {
+    manifestTrackingNumber: '123456799JJK',
+    status: 'Corrected',
+    versionNumber: 2
   }
-  const res = await haztrak.eMan.search(searchCrit)
+  const res = await haztrak.eMan.correction(version)
   console.log(res)
 }
-testSearch()
+testCorrection()
+
