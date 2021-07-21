@@ -62,9 +62,20 @@ import haztrak from '../index.js'
 // }
 // fooBarBar()
 
-const testCorrectionDetails = async () => {
-  const mtn = '100024722ELC'
-  const res = await haztrak.eMan.correctionDetail(mtn)
+// const testCorrectionDetails = async () => {
+//   const mtn = '100024722ELC'
+//   const res = await haztrak.eMan.correctionDetail(mtn)
+//   console.log(res)
+// }
+// testCorrectionDetails()
+
+const testSearch = async () => {
+  const searchCrit = {
+    stateCode: 'VA',
+    status: 'Pending',
+    siteType: 'Generator'
+  }
+  const res = await haztrak.eMan.search(searchCrit)
   console.log(res)
 }
-testCorrectionDetails()
+testSearch()
