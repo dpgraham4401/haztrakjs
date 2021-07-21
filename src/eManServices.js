@@ -244,8 +244,41 @@ async function eManBillHistory (bill) {
   }
 }
 
+/**
+ * Retrieve all correction version info
+ *
+ * @param {string} mtn manifest tracking number (MTN)
+ * */
+async function eManCorrectionDetails (mtn) {
+  try {
+    const res = await eManAPI.get({
+      url: `/emanifest/manifest/correction-details/${mtn}`,
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.error(`Problem reverting ${mtn}`)
+    console.error(error.message)
+  }
+}
+
 export {
-  eManGet as get, eManSave as save, eManDel as delete,
-  eManSites as sites, mtnExists as exists, siteMtn,
-  eManRevert as revert, eManBill as bill, eManBillHistory as billHistory
+  eManBillHistory as billHistory,
+  eManBill as bill,
+  // get manifests attachments
+  eManSearch as search,
+  eManCorrectionDetails as correctionDetail,
+  // correction-version
+  siteMtn,
+  eManGet as get,
+  eManSites as sites,
+  // correct
+  eManRevert as revert,
+  // correction-verion/attachment
+  mtnExists as exists,
+  // update
+  eManDel as del,
+  eManSave as save
 }
