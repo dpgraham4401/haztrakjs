@@ -4,6 +4,60 @@ import * as eManAPI from './eManAPI.js'
 import fs from 'fs'
 
 /**
+ * Retrieve billing history by account ID
+ *
+ * @param {object} bill billing object by ID or date
+ * @param {string} bill.billingAccount billing account number
+ * @param {string} bill.startMonthYear start of invoice months and year (mm/yyy)
+ * @param {string} bill.endMonthYear end of invoice months and year (mm/yyy)
+ * */
+async function eManBillHistory (bill) {
+  try {
+    const billData = JSON.stringify(bill)
+    const res = await eManAPI.post({
+      url: '/emanifest/billing/bill-history',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'text/plain'
+      },
+      data: billData
+    })
+    return res.data
+  } catch (error) {
+    console.error('Problem retrieving bill history')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
+/**
+ * Retrieve bill for provided bill id or date
+ *
+ * @param {object} bill billing object by ID or date
+ * @param {string} bill.billId invoice id number
+ * @param {string} bill.billingAccount billing account number
+ * @param {string} monthYear invoice month and year (mm/yyy)
+ * */
+async function eManBill (bill) {
+  try {
+    const billData = JSON.stringify(bill)
+    const res = await eManAPI.post({
+      url: '/emanifest/billing/bill',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'text/plain'
+      },
+      data: billData
+    })
+    return res.data
+  } catch (error) {
+    console.error('Problem retrieving bill')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
+/**
  * Get manifests Data and/or attachment
  *
  * @param {string} mtn manifest tracking number
@@ -40,7 +94,173 @@ async function eManGet (mtn, attachments = false) {
 }
 
 /**
- * Delete manifests when allowed
+ * search: retrieve manifest tracking numbers based on search criteria
+ *
+ * @param {object} search object wit search criteria
+ * @param {string} search.siteId site EPA ID number
+ * @param {string} search.status Pending | Scheduled | InTransit | Recieved | ReadyForSignature | SignedComplete | UnderCorrection | Corrected
+ * @param {string} search.dateType CertifiedDate | RecievedDate | ShippedDate | UpdateDate
+ * @param {string} search.siteType Generator | Tsdf | Transporter | RejectionInfo_AlternateTsdf
+ * @param {string} search.startDate date in ___ format
+ * @param {string} search.endDate date in ___ format
+ **/
+async function eManSearch (search) {
+  try {
+    const searchData = JSON.stringify(search)
+    const res = await eManAPI.post({
+      url: '/emanifest/search',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'text/plain'
+      },
+      data: searchData
+    })
+    return res.data
+  } catch (error) {
+    console.error('Problem retrieving bill history')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
+/**
+ * Correction-details: Retrieve all correction version info
+ *
+ * @param {string} mtn manifest tracking number (MTN)
+ **/
+async function eManCorrectionDetails (mtn) {
+  try {
+    const res = await eManAPI.get({
+      url: `/emanifest/manifest/correction-details/${mtn}`,
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.error(`Problem reverting ${mtn}`)
+    console.error(error.message)
+  }
+}
+
+/**
+ * Correction-version: Retrieve details of manifest correction version
+ *
+ * @param {object} version
+ * @param {string} version.manifestTrackingNumber mtn
+ * @param {string} version.status Signed | UnderCorrection | Corrected
+ * @param {string} version.ppcStatus PendingDataEntry | DataQaCompleted
+ * @param {integer} version.versionNumber integer >= 1
+ * @param {string} attachment path where to save pdf [liable to change]
+ **/
+async function eManCorrection (version) {
+  try {
+    const versionData = JSON.stringify(version)
+    const res = await eManAPI.post({
+      url: '/emanifest/manifest/correction-version',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'text/plain'
+      },
+      data: versionData
+    })
+    return res.data
+  } catch (error) {
+    console.error('Problem retrieving correction version details/attachment')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
+/**
+ * siteMtn: Get all manifest tracking number (MTN) for a given ID
+ *
+ * @param {string} siteId EPA id number
+ **/
+async function siteMtn (siteId) {
+  try {
+    const res = await eManAPI.get({
+      url: `/emanifest/manifest-tracking-numbers/${siteId}`,
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.error(`Problem getting the MTNs for ${siteId}`)
+    console.error(error.message)
+  }
+}
+
+/**
+ * site-ids: Get site-ids by state code and handler type
+ *
+ * @param {string} stateCode state code (e.g. MA, TX, VA)
+ * @param {boolean} siteType handler type (Generator, TSDF, Transporter)
+ * */
+async function eManSites (stateCode, siteType) {
+  try {
+    stateCode = stateCode.toUpperCase()
+    siteType = siteType.toUpperCase()
+    if (siteType !== 'GENERATOR' && siteType !== 'TRANSPORTER' && siteType !== 'TSDF') {
+      throw new Error('siteType must be Generator, tsdf, or transporter')
+    }
+    const res = await eManAPI.get({
+      url: `/emanifest/site-ids/${stateCode}/${siteType}`,
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.error('Problem getting sites')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
+/**
+ * Revert: manifest under correction to previous version
+ *
+ * @param {string} mtn manifest tracking number (MTN)
+ * */
+async function eManRevert (mtn) {
+  try {
+    const res = await eManAPI.get({
+      url: `/emanifest/manifest/revert/${mtn}`,
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.error(`Problem reverting ${mtn}`)
+    console.error(error.message)
+  }
+}
+
+/**
+ * mtnExists: Check whether an manifest tracking number exists
+ *
+ * @param {string} mtn manifest tracking number
+ * */
+async function mtnExists (mtn) {
+  try {
+    const res = await eManAPI.get({
+      url: `/emanifest/manifest/mtn-exists/${mtn}`,
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.error('Problem testing if mtn exist')
+    console.error(error.message)
+  }
+}
+
+/**
+ * Delete: manifests when allowed
  *
  * @param {string} mtn manifest tracking number
  * */
@@ -62,7 +282,7 @@ async function eManDel (mtn) {
 }
 
 /**
-  * Save manifest with JSON and optional zip attachment
+  * Save: manifest with JSON and optional zip attachment
   *
   * @param {string} mtnJson manifest object
   * @param {string} zipPath Path to zip attachment
@@ -104,147 +324,6 @@ async function eManSave (mtnJson, zipPath) {
 }
 
 /**
- * Get site-ids by state code and handler type
- *
- * @param {string} stateCode state code (e.g. MA, TX, VA)
- * @param {boolean} siteType handler type (Generator, TSDF, Transporter)
- * */
-async function eManSites (stateCode, siteType) {
-  try {
-    stateCode = stateCode.toUpperCase()
-    siteType = siteType.toUpperCase()
-    if (siteType !== 'GENERATOR' && siteType !== 'TRANSPORTER' && siteType !== 'TSDF') {
-      throw new Error('siteType must be Generator, tsdf, or transporter')
-    }
-    const res = await eManAPI.get({
-      url: `/emanifest/site-ids/${stateCode}/${siteType}`,
-      headers: {
-        Accept: 'application/json'
-      }
-    })
-    return res.data
-  } catch (error) {
-    console.error('Problem getting sites')
-    console.error(error.message)
-    console.error(error.response.data)
-  }
-}
-
-/**
- * Check whether an manifest tracking number exists
- *
- * @param {string} mtn manifest tracking number
- * */
-async function mtnExists (mtn) {
-  try {
-    const res = await eManAPI.get({
-      url: `/emanifest/manifest/mtn-exists/${mtn}`,
-      headers: {
-        Accept: 'application/json'
-      }
-    })
-    return res.data
-  } catch (error) {
-    console.error('Problem testing if mtn exist')
-    console.error(error.message)
-  }
-}
-
-/**
- * Get all manifest tracking number (MTN) for a given ID
- *
- * @param {string} siteId EPA id number
- * */
-async function siteMtn (siteId) {
-  try {
-    const res = await eManAPI.get({
-      url: `/emanifest/manifest-tracking-numbers/${siteId}`,
-      headers: {
-        Accept: 'application/json'
-      }
-    })
-    return res.data
-  } catch (error) {
-    console.error(`Problem getting the MTNs for ${siteId}`)
-    console.error(error.message)
-  }
-}
-
-/**
- * Revert manifest under correction to previous version
- *
- * @param {string} mtn manifest tracking number (MTN)
- * */
-async function eManRevert (mtn) {
-  try {
-    const res = await eManAPI.get({
-      url: `/emanifest/manifest/revert/${mtn}`,
-      headers: {
-        Accept: 'application/json'
-      }
-    })
-    return res.data
-  } catch (error) {
-    console.error(`Problem reverting ${mtn}`)
-    console.error(error.message)
-  }
-}
-
-/**
- * Retrieve bill for provided bill id or date
- *
- * @param {object} bill billing object by ID or date
- * @param {string} bill.billId invoice id number
- * @param {string} bill.billingAccount billing account number
- * @param {string} monthYear invoice month and year (mm/yyy)
- * */
-async function eManBill (bill) {
-  try {
-    const billData = JSON.stringify(bill)
-    const res = await eManAPI.post({
-      url: '/emanifest/billing/bill',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'text/plain'
-      },
-      data: billData
-    })
-    return res.data
-  } catch (error) {
-    console.error('Problem retrieving bill')
-    console.error(error.message)
-    console.error(error.response.data)
-  }
-}
-
-/**
- * Retrieve billing history by account ID
- *
- * @param {object} bill billing object by ID or date
- * @param {string} bill.billingAccount billing account number
- * @param {string} bill.startMonthYear start of invoice months and year (mm/yyy)
- * @param {string} bill.endMonthYear end of invoice months and year (mm/yyy)
- * */
-async function eManBillHistory (bill) {
-  try {
-    const billData = JSON.stringify(bill)
-    const res = await eManAPI.post({
-      url: '/emanifest/billing/bill-history',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'text/plain'
-      },
-      data: billData
-    })
-    return res.data
-  } catch (error) {
-    console.error('Problem retrieving bill history')
-    console.error(error.message)
-    console.error(error.response.data)
-  }
-}
-
-/**
  * Search for manifests
  *
  * @param {object} searchObj object with search parameters
@@ -276,8 +355,21 @@ async function eManSearch (searchObj) {
 }
 
 export {
-  eManGet as get, eManSave as save, eManDel as delete,
-  eManSites as sites, mtnExists as exists, siteMtn,
-  eManRevert as revert, eManBill as bill,
-  eManBillHistory as billHistory, eManSearch as search
+  eManBillHistory as billHistory,
+  eManBill as bill,
+  // get manifests attachments
+  eManSearch as search,
+  eManCorrectionDetails as correctionDetail,
+  // correction-version
+  eManCorrection as correction,
+  siteMtn,
+  eManGet as get,
+  eManSites as sites,
+  // correct
+  eManRevert as revert,
+  // correction-verion/attachment
+  mtnExists as exists,
+  // update
+  eManDel as del,
+  eManSave as save
 }
