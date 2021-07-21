@@ -12,3 +12,4 @@ src/example*
 *.bak
 *.zip
 *.tar
+*.json
