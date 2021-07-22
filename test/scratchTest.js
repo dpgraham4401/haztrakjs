@@ -1,5 +1,5 @@
-
 import haztrak from '../index.js'
+import fs from 'fs'
 // const fooBar = async () => {
 //   const mtn = '100030514ELC'
 //   const res = await haztrak.eMan.get(mtn)
@@ -7,7 +7,34 @@ import haztrak from '../index.js'
 // }
 // fooBar()
 
-// import fs from 'fs'
+// const testUpdate = async () => {
+//   fs.readFile('./examplesMtn.json', 'utf8', async (err, data) => {
+//     if (err) {
+//       console.log('error reading file')
+//     } else {
+//       let mtnJson = JSON.parse(data)
+//       mtnJson = JSON.stringify(mtnJson)
+//       const res = await haztrak.eMan.update(mtnJson)
+//       console.log(res)
+//     }
+//   })
+// }
+// testUpdate()
+
+const testCorrect = async () => {
+  fs.readFile('./examplesMtn.json', 'utf8', async (err, data) => {
+    if (err) {
+      console.log('error reading file')
+    } else {
+      let mtnJson = JSON.parse(data)
+      mtnJson = JSON.stringify(mtnJson)
+      const res = await haztrak.eMan.correct(mtnJson)
+      console.log(res)
+    }
+  })
+}
+testCorrect()
+
 // const fooBar = async () => {
 //   const stateCode = 'VA'
 //   const siteType = 'tsdf'
@@ -80,14 +107,13 @@ import haztrak from '../index.js'
 // }
 // testSearch()
 
-const testCorrection = async () => {
-  const version = {
-    manifestTrackingNumber: '123456799JJK',
-    status: 'Corrected',
-    versionNumber: 2
-  }
-  const res = await haztrak.eMan.correction(version)
-  console.log(res)
-}
-testCorrection()
-
+// const testCorrection = async () => {
+//   const version = {
+//     manifestTrackingNumber: '123456799JJK',
+//     status: 'Corrected',
+//     versionNumber: 2
+//   }
+//   const res = await haztrak.eMan.correction(version)
+//   console.log(res)
+// }
+// testCorrection()

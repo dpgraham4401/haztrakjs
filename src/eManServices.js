@@ -4,7 +4,7 @@ import * as eManAPI from './eManAPI.js'
 import fs from 'fs'
 
 /**
- * Retrieve billing history by account ID
+ * Bill-history: Retrieve billing history by account ID
  *
  * @param {object} bill billing object by ID or date
  * @param {string} bill.billingAccount billing account number
@@ -31,7 +31,7 @@ async function eManBillHistory (bill) {
 }
 
 /**
- * Retrieve bill for provided bill id or date
+ * Bill: Retrieve bill for provided bill id or date
  *
  * @param {object} bill billing object by ID or date
  * @param {string} bill.billId invoice id number
@@ -58,7 +58,7 @@ async function eManBill (bill) {
 }
 
 /**
- * Get manifests Data and/or attachment
+ * Manifest data: Get manifests Data and/or attachment
  *
  * @param {string} mtn manifest tracking number
  * @param {boolean} attachments [1] get zip files [0] just JSON
@@ -94,7 +94,7 @@ async function eManGet (mtn, attachments = false) {
 }
 
 /**
- * search: retrieve manifest tracking numbers based on search criteria
+ * Search: retrieve manifest tracking numbers based on search criteria
  *
  * @param {object} search object wit search criteria
  * @param {string} search.siteId site EPA ID number
@@ -173,7 +173,7 @@ async function eManCorrection (version) {
 }
 
 /**
- * siteMtn: Get all manifest tracking number (MTN) for a given ID
+ * site MTNs: Get all manifest tracking number (MTN) for a given ID
  *
  * @param {string} siteId EPA id number
  **/
@@ -220,6 +220,48 @@ async function eManSites (stateCode, siteType) {
 }
 
 /**
+  * Correct: correct previously submitted manifest with JSON and optional zip
+  *
+  * @param {string} mtnJson manifest object
+  * @param {string} zipPath Path to zip attachment
+  * */
+async function eManCorrect (mtnJson, zipPath) {
+  try {
+    if (zipPath) {
+      const form = new FormData()
+      form.append('manifest', mtnJson)
+      form.append('attachment', fs.createReadStream(zipPath))
+      const formHeaders = form.getHeaders()
+      console.log(formHeaders)
+      const res = await eManAPI.put({
+        url: 'emanifest/manifest/correct',
+        headers: {
+          ...formHeaders
+        },
+        data: form
+      })
+      return res.data
+    } else {
+      const form = new FormData()
+      form.append('manifest', mtnJson)
+      const formHeaders = form.getHeaders()
+      const res = await eManAPI.put({
+        url: 'emanifest/manifest/correct',
+        headers: {
+          ...formHeaders
+        },
+        data: form
+      })
+      return res.data
+    }
+  } catch (error) {
+    console.error('Problem correcting manifest')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
+/**
  * Revert: manifest under correction to previous version
  *
  * @param {string} mtn manifest tracking number (MTN)
@@ -256,6 +298,48 @@ async function mtnExists (mtn) {
   } catch (error) {
     console.error('Problem testing if mtn exist')
     console.error(error.message)
+  }
+}
+
+/**
+  * Update: update manifest with JSON and optional zip attachment
+  *
+  * @param {string} mtnJson manifest object
+  * @param {string} zipPath Path to zip attachment
+  * */
+async function eManUpdate (mtnJson, zipPath) {
+  try {
+    if (zipPath) {
+      const form = new FormData()
+      form.append('manifest', mtnJson)
+      form.append('attachment', fs.createReadStream(zipPath))
+      const formHeaders = form.getHeaders()
+      console.log(formHeaders)
+      const res = await eManAPI.put({
+        url: 'emanifest/manifest/update',
+        headers: {
+          ...formHeaders
+        },
+        data: form
+      })
+      return res.data
+    } else {
+      const form = new FormData()
+      form.append('manifest', mtnJson)
+      const formHeaders = form.getHeaders()
+      const res = await eManAPI.put({
+        url: 'emanifest/manifest/update',
+        headers: {
+          ...formHeaders
+        },
+        data: form
+      })
+      return res.data
+    }
+  } catch (error) {
+    console.error('Problem updating manifest')
+    console.error(error.message)
+    console.error(error.response.data)
   }
 }
 
@@ -326,19 +410,18 @@ async function eManSave (mtnJson, zipPath) {
 export {
   eManBillHistory as billHistory,
   eManBill as bill,
-  // get manifests attachments
   eManSearch as search,
   eManCorrectionDetails as correctionDetail,
-  // correction-version
   eManCorrection as correction,
   siteMtn,
   eManGet as get,
+  // get manifests attachments
   eManSites as sites,
-  // correct
+  eManCorrect as correct,
   eManRevert as revert,
   // correction-verion/attachment
   mtnExists as exists,
-  // update
+  eManUpdate as update,
   eManDel as del,
   eManSave as save
 }
