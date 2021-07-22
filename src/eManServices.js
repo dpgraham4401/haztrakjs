@@ -260,6 +260,48 @@ async function mtnExists (mtn) {
 }
 
 /**
+  * Update: update manifest with JSON and optional zip attachment
+  *
+  * @param {string} mtnJson manifest object
+  * @param {string} zipPath Path to zip attachment
+  * */
+async function eManUpdate (mtnJson, zipPath) {
+  try {
+    if (zipPath) {
+      const form = new FormData()
+      form.append('manifest', mtnJson)
+      form.append('attachment', fs.createReadStream(zipPath))
+      const formHeaders = form.getHeaders()
+      console.log(formHeaders)
+      const res = await eManAPI.put({
+        url: 'emanifest/manifest/update',
+        headers: {
+          ...formHeaders
+        },
+        data: form
+      })
+      return res.data
+    } else {
+      const form = new FormData()
+      form.append('manifest', mtnJson)
+      const formHeaders = form.getHeaders()
+      const res = await eManAPI.put({
+        url: 'emanifest/manifest/update',
+        headers: {
+          ...formHeaders
+        },
+        data: form
+      })
+      return res.data
+    }
+  } catch (error) {
+    console.error('Problem updating manifest')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
+/**
  * Delete: manifests when allowed
  *
  * @param {string} mtn manifest tracking number
@@ -326,19 +368,18 @@ async function eManSave (mtnJson, zipPath) {
 export {
   eManBillHistory as billHistory,
   eManBill as bill,
-  // get manifests attachments
   eManSearch as search,
   eManCorrectionDetails as correctionDetail,
-  // correction-version
   eManCorrection as correction,
   siteMtn,
   eManGet as get,
+  // get manifests attachments
   eManSites as sites,
   // correct
   eManRevert as revert,
   // correction-verion/attachment
   mtnExists as exists,
-  // update
+  eManUpdate as update,
   eManDel as del,
   eManSave as save
 }
