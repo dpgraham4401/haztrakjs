@@ -7,19 +7,33 @@ import fs from 'fs'
 // }
 // fooBar()
 
-const testUpdate = async () => {
+// const testUpdate = async () => {
+//   fs.readFile('./examplesMtn.json', 'utf8', async (err, data) => {
+//     if (err) {
+//       console.log('error reading file')
+//     } else {
+//       let mtnJson = JSON.parse(data)
+//       mtnJson = JSON.stringify(mtnJson)
+//       const res = await haztrak.eMan.update(mtnJson)
+//       console.log(res)
+//     }
+//   })
+// }
+// testUpdate()
+
+const testCorrect = async () => {
   fs.readFile('./examplesMtn.json', 'utf8', async (err, data) => {
     if (err) {
       console.log('error reading file')
     } else {
       let mtnJson = JSON.parse(data)
       mtnJson = JSON.stringify(mtnJson)
-      const res = await haztrak.eMan.update(mtnJson)
+      const res = await haztrak.eMan.correct(mtnJson)
       console.log(res)
     }
   })
 }
-testUpdate()
+testCorrect()
 
 // const fooBar = async () => {
 //   const stateCode = 'VA'

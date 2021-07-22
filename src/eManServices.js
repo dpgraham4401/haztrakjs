@@ -4,7 +4,7 @@ import * as eManAPI from './eManAPI.js'
 import fs from 'fs'
 
 /**
- * Retrieve billing history by account ID
+ * Bill-history: Retrieve billing history by account ID
  *
  * @param {object} bill billing object by ID or date
  * @param {string} bill.billingAccount billing account number
@@ -31,7 +31,7 @@ async function eManBillHistory (bill) {
 }
 
 /**
- * Retrieve bill for provided bill id or date
+ * Bill: Retrieve bill for provided bill id or date
  *
  * @param {object} bill billing object by ID or date
  * @param {string} bill.billId invoice id number
@@ -58,7 +58,7 @@ async function eManBill (bill) {
 }
 
 /**
- * Get manifests Data and/or attachment
+ * Manifest data: Get manifests Data and/or attachment
  *
  * @param {string} mtn manifest tracking number
  * @param {boolean} attachments [1] get zip files [0] just JSON
@@ -94,7 +94,7 @@ async function eManGet (mtn, attachments = false) {
 }
 
 /**
- * search: retrieve manifest tracking numbers based on search criteria
+ * Search: retrieve manifest tracking numbers based on search criteria
  *
  * @param {object} search object wit search criteria
  * @param {string} search.siteId site EPA ID number
@@ -173,7 +173,7 @@ async function eManCorrection (version) {
 }
 
 /**
- * siteMtn: Get all manifest tracking number (MTN) for a given ID
+ * site MTNs: Get all manifest tracking number (MTN) for a given ID
  *
  * @param {string} siteId EPA id number
  **/
@@ -214,6 +214,48 @@ async function eManSites (stateCode, siteType) {
     return res.data
   } catch (error) {
     console.error('Problem getting sites')
+    console.error(error.message)
+    console.error(error.response.data)
+  }
+}
+
+/**
+  * Correct: correct previously submitted manifest with JSON and optional zip
+  *
+  * @param {string} mtnJson manifest object
+  * @param {string} zipPath Path to zip attachment
+  * */
+async function eManCorrect (mtnJson, zipPath) {
+  try {
+    if (zipPath) {
+      const form = new FormData()
+      form.append('manifest', mtnJson)
+      form.append('attachment', fs.createReadStream(zipPath))
+      const formHeaders = form.getHeaders()
+      console.log(formHeaders)
+      const res = await eManAPI.put({
+        url: 'emanifest/manifest/correct',
+        headers: {
+          ...formHeaders
+        },
+        data: form
+      })
+      return res.data
+    } else {
+      const form = new FormData()
+      form.append('manifest', mtnJson)
+      const formHeaders = form.getHeaders()
+      const res = await eManAPI.put({
+        url: 'emanifest/manifest/correct',
+        headers: {
+          ...formHeaders
+        },
+        data: form
+      })
+      return res.data
+    }
+  } catch (error) {
+    console.error('Problem correcting manifest')
     console.error(error.message)
     console.error(error.response.data)
   }
@@ -365,37 +407,6 @@ async function eManSave (mtnJson, zipPath) {
   }
 }
 
-/**
- * Search for manifests
- *
- * @param {object} searchObj object with search parameters
- * @param {string} searchObj.stateCode state code
- * @param {string} searchObj.siteId EPA/Site ID number
- * @param {string} searchObj.Status Pending|Scheduled|InTransit|ReadyForSignature|Signed|SignedComplete|UnderCorrection|Corrected
- * @param {string} searchObj.dateType CertifiedDate|RecievedDate|ShippedDate|UpdateDate
- * @param {string} searchObj.siteType Generator|Tsdf|Transporter|RejectionInfo_AlternateTsdf
- * @param {string} searchObj.startDate date type start
- * @param {string} searchObj.endDate date type end
- * */
-async function eManSearch (searchObj) {
-  try {
-    const searchData = JSON.stringify(searchObj)
-    const res = await eManAPI.post({
-      url: '/emanifest/search',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'text/plain'
-      },
-      data: searchData
-    })
-    return res.data
-  } catch (error) {
-    console.error('Problem searching for manifests')
-    console.error(error.message)
-    console.error(error.response.data)
-  }
-}
-
 export {
   eManBillHistory as billHistory,
   eManBill as bill,
@@ -406,7 +417,7 @@ export {
   eManGet as get,
   // get manifests attachments
   eManSites as sites,
-  // correct
+  eManCorrect as correct,
   eManRevert as revert,
   // correction-verion/attachment
   mtnExists as exists,
