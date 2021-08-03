@@ -1,5 +1,5 @@
 import haztrak from '../index.js'
-import fs from 'fs'
+// import fs from 'fs'
 // const fooBar = async () => {
 //   const mtn = '100030514ELC'
 //   const res = await haztrak.eMan.get(mtn)
@@ -21,19 +21,19 @@ import fs from 'fs'
 // }
 // testUpdate()
 
-const testCorrect = async () => {
-  fs.readFile('./examplesMtn.json', 'utf8', async (err, data) => {
-    if (err) {
-      console.log('error reading file')
-    } else {
-      let mtnJson = JSON.parse(data)
-      mtnJson = JSON.stringify(mtnJson)
-      const res = await haztrak.eMan.correct(mtnJson)
-      console.log(res)
-    }
-  })
-}
-testCorrect()
+// const testCorrect = async () => {
+//   fs.readFile('./examplesMtn.json', 'utf8', async (err, data) => {
+//     if (err) {
+//       console.log('error reading file')
+//     } else {
+//       let mtnJson = JSON.parse(data)
+//       mtnJson = JSON.stringify(mtnJson)
+//       const res = await haztrak.eMan.correct(mtnJson)
+//       console.log(res)
+//     }
+//   })
+// }
+// testCorrect()
 
 // const fooBar = async () => {
 //   const stateCode = 'VA'
@@ -63,7 +63,7 @@ testCorrect()
 //   console.log(res)
 // }
 
-// const fooBar = async () => {
+// const testBillHist = async () => {
 //   const bill = {
 //     billingAccount: 'VAD000532119',
 //     startMonthYear: '01/2021',
@@ -72,6 +72,7 @@ testCorrect()
 //   const res = await haztrak.eMan.billHistory(bill)
 //   console.log(res)
 // }
+// testBillHist()
 
 // const fooBar = async () => {
 //   const mtn = '100030514ELC'
@@ -117,3 +118,27 @@ testCorrect()
 //   console.log(res)
 // }
 // testCorrection()
+
+const testUiLink = async () => {
+  const linkReq1 = {
+    page: "Dashbaord",
+    epaSiteId: "VATEST000001"
+  }
+  const linkReq2 = {
+    page: "BulkSign",
+    epaSiteId: "VATEST000001",
+    mtn: ['100028450ELC', '100028431ELC']
+  }
+  const linkReq3 = {
+    page: "Edit",
+    epaSiteId: "VATEST000001",
+    mtn: '100031335ELC'
+  }
+  const link1 = await haztrak.eManLink(linkReq1)
+  console.log(link1)
+  const link2 = await haztrak.eManLink(linkReq2)
+  console.log(link2)
+  const link3 = await haztrak.eManLink(linkReq3)
+  console.log(link3)
+}
+testUiLink()
