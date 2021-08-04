@@ -25,6 +25,15 @@ Simply put, haztrak is a package that helps users consume the EPA
 Just keep in mind, this project is developed by volunteers.
 
 ### Getting started
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Make sure your changes are tested either with unit or UI tests. (`npm test`)
+4. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+5. Push to the Branch (`git push origin feature/AmazingFeature`)
+6. Open a Pull Request
+
 haztrak uses ECMAScript 6 syntax, including import/export, which became a core feature of node 13.2, if you have the LTS version of node or greater, you're set. And of course, [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/).
 ```bash
   $ node -v
