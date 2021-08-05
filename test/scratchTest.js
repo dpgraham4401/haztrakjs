@@ -119,49 +119,49 @@ import haztrak from '../index.js'
 // }
 // testCorrection()
 
-// const testUiLink = async () => {
-//   const linkReq1 = {
-//     page: "Dashbaord",
-//     epaSiteId: "VATEST000001"
-//   }
-//   const linkReq2 = {
-//     page: "BulkSign",
-//     epaSiteId: "VATEST000001",
-//     mtn: ['100028450ELC', '100028431ELC']
-//   }
-//   const linkReq3 = {
-//     page: "Edit",
-//     epaSiteId: "VATEST000001",
-//     mtn: '100031335ELC'
-//   }
-//   const link1 = await haztrak.eManLink(linkReq1)
-//   console.log(link1)
-//   const link2 = await haztrak.eManLink(linkReq2)
-//   console.log(link2)
-//   const link3 = await haztrak.eManLink(linkReq3)
-//   console.log(link3)
-// }
-// testUiLink()
-
-const testSite = async () => {
-  const searchObj1 = {
-    name: "test tsdf",
-    state: "va",
-    siteType: "Tsdf"
+const testUiLink = async () => {
+  const linkReq1 = {
+    page: "Dashboard",
+    epaSiteId: "VATEST000001"
   }
-  const searchObj2 = {
-    details: 'True',
-    siteId: 'VATEST000001'
+  const linkReq2 = {
+    page: "BulkSign",
+    epaSiteId: "VATEST000001",
+    mtn: ['100028450ELC', '100028431ELC']
   }
-  const searchObj3 = {
-    exist: 'True',
-    siteId: 'VATEST000001'
+  const linkReq3 = {
+    page: "Edit",
+    epaSiteId: "VATEST000001",
+    mtn: '100031335ELC'
   }
-  const res1 = await haztrak.site(searchObj1)
-  const res2 = await haztrak.site(searchObj2)
-  const res3 = await haztrak.site(searchObj3)
-  console.log(res1)
-  console.log(res2)
-  console.log(res3)
+  const link1 = await haztrak.eManLink(linkReq1)
+  console.log('link1: ' + link1)
+  const link2 = await haztrak.eManLink(linkReq2)
+  console.log('link2: ' + link2)
+  const link3 = await haztrak.eManLink(linkReq3)
+  console.log('link3: ' + link3)
 }
-testSite()
+testUiLink()
+
+// const testSite = async () => {
+//   const searchObj1 = {
+//     name: "test tsdf",
+//     state: "va",
+//     siteType: "Tsdf"
+//   }
+//   const searchObj2 = {
+//     details: 'True',
+//     siteId: 'VATEST000001'
+//   }
+//   const searchObj3 = {
+//     exist: 'True',
+//     siteId: 'VATEST000001'
+//   }
+//   const res1 = await haztrak.site(searchObj1)
+//   const res2 = await haztrak.site(searchObj2)
+//   const res3 = await haztrak.site(searchObj3)
+//   console.log(res1)
+//   console.log(res2)
+//   console.log(res3)
+// }
+// testSite()

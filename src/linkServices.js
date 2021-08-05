@@ -3,50 +3,53 @@
 import * as eManAPI from './eManAPI.js'
 
 /**
- * Create link to e-Manifest signature page
+ * Create link to view/sign e-Manifest 
  *
- * @param {string} page default=Dashboard, BulkSign
- * @param {string} siteID epa id
- * @param {array} array of manifest tracking numbers
+ * @param {object} linkObj object with parameters of the requested link
+ * @param {string} linkObj.page BulkSign | Dashboard | BulkQuickSign | Edit | View | Sign 
+ * @param {string} linkObj.epaSiteId epa id Number signing for
+ * @param {array} linkObj.mtn array of manifest tracking numbers
+ * 
+ * @link https://github.com/USEPA/e-manifest 
  *
  * @return {string} Deep link to e-Manifest page
  * */
-async function eManLink (page = 'Dashboard', siteID, mtn) {
+async function eManLink (linkObj) {
   try {
-    if (page.length > 5) {
-      if (page.toUpperCase() === 'BULKSIGN') {
-        page = 'BulkSign'
+    if (linkObj.page.length > 5) {
+      if (linkObj.page.toUpperCase() === 'BULKSIGN') {
+        var postData = {
+          page: 'BulkSign'
+        }
       } else {
-        page = 'Dashboard'
+        var postData = {
+          page: 'Dashboard'
+        }
       }
-      const resUiLink = await eManAPI.post({
+      postData.epaSiteId = linkObj.epaSiteId.toUpperCase()
+      if (linkObj.mtn) {
+        postData.filter = linkObj.mtn.map((x) => { return x.toUpperCase()})
+      }
+      const res = await eManAPI.post({
         url: '/links/emanifest',
-        data: {
-          page: page,
-          epaSiteId: siteID,
-          filter: mtn
-        }
+        data: postData 
       })
-      return resUiLink.data
-      // console.log(resUiLink.data)
+      return res.data
     } else {
-      page = page.charAt(0).toUpperCase() + page.slice(1).toLowerCase()
-      mtn = mtn.toUpperCase()
-      siteID = siteID.toUpperCase()
-      const resUiLink = await eManAPI.post({
+      const postData = {
+        page: linkObj.page.charAt(0).toUpperCase() + linkObj.page.slice(1).toLowerCase(),
+        manifestTrackingNumber: linkObj.mtn.toUpperCase(),
+        epaSiteId: linkObj.epaSiteId.toUpperCase()
+      }
+      const res = await eManAPI.post({
         url: '/links/emanifest',
-        data: {
-          page: page,
-          epaSiteId: siteID,
-          manifestTrackingNumber: mtn
-        }
+        data: postData 
       })
-      // console.log(resUiLink.data)
-      return resUiLink.data
+      return res.data
     }
   } catch (error) {
     console.error(error.message)
-    console.error(error.response.data)
+    console.error(error.response)
   }
 }
 
