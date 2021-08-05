@@ -35,18 +35,12 @@ import haztrak from '../index.js'
 // }
 // testCorrect()
 
-// const fooBar = async () => {
-//   const stateCode = 'VA'
-//   const siteType = 'tsdf'
-//   const res = await haztrak.eMan.sites(stateCode, siteType)
-//   console.log(res)
-// }
-
-// const testMtnExists = async () => {
-//   const mtn = '100032135ELC'
-//   const res = await haztrak.eMan.exists(mtn)
-//   console.log(res)
-// }
+const testMtnExists = async () => {
+  const mtn = '100032135ELC'
+  const res = await haztrak.eMan.exists(mtn)
+  console.log(typeof res)
+}
+testMtnExists()
 
 // const testSiteMtn= async () => {
 //   const siteId = 'VA988177803'
@@ -74,13 +68,13 @@ import haztrak from '../index.js'
 // }
 // testBillHist()
 
-// const fooBar = async () => {
+// const testGetManifest = async () => {
 //   const mtn = '100030514ELC'
 //   const res = await haztrak.eMan.get(mtn)
 //   return res
 // }
-// const fooBarBar = async () => {
-//   let response = await fooBar()
+// const testSaveManifest = async () => {
+//   let response = await testGetManifest()
 //   response = JSON.stringify(response)
 //   fs.writeFile('./examplesMtn.json', response, err => {
 //     if (err) {
@@ -88,7 +82,7 @@ import haztrak from '../index.js'
 //     }
 //   })
 // }
-// fooBarBar()
+// testSaveManifest()
 
 // const testCorrectionDetails = async () => {
 //   const mtn = '100024722ELC'
@@ -96,17 +90,6 @@ import haztrak from '../index.js'
 //   console.log(res)
 // }
 // testCorrectionDetails()
-
-// const testSearch = async () => {
-//   const searchCrit = {
-//     stateCode: 'VA',
-//     status: 'Pending',
-//     siteType: 'Generator'
-//   }
-//   const res = await haztrak.eMan.search(searchCrit)
-//   console.log(res)
-// }
-// testSearch()
 
 // const testCorrection = async () => {
 //   const version = {
@@ -124,22 +107,8 @@ const testUiLink = async () => {
     page: "Dashboard",
     epaSiteId: "VATEST000001"
   }
-  const linkReq2 = {
-    page: "BulkSign",
-    epaSiteId: "VATEST000001",
-    mtn: ['100028450ELC', '100028431ELC']
-  }
-  const linkReq3 = {
-    page: "Edit",
-    epaSiteId: "VATEST000001",
-    mtn: '100031335ELC'
-  }
   const link1 = await haztrak.eManLink(linkReq1)
-  console.log('link1: ' + link1)
-  const link2 = await haztrak.eManLink(linkReq2)
-  console.log('link2: ' + link2)
-  const link3 = await haztrak.eManLink(linkReq3)
-  console.log('link3: ' + link3)
+  console.log('UI Link type: ' + typeof link1)
 }
 testUiLink()
 
@@ -165,3 +134,11 @@ testUiLink()
 //   console.log(res3)
 // }
 // testSite()
+
+const testLook = async () => {
+  const densities = await haztrak.lookup('den')
+  console.log(densities)
+  const form = await haztrak.lookup('form')
+  console.log(form)
+}
+testLook()

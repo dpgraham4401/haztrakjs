@@ -3,7 +3,7 @@
 import * as eManAPI from './eManAPI.js'
 
 /**
- * Create link to view/sign e-Manifest 
+ * Create link to view/sign e-Manifest.
  *
  * @param {object} linkObj object with parameters of the requested link
  * @param {string} linkObj.page BulkSign | Dashboard | BulkQuickSign | Edit | View | Sign 

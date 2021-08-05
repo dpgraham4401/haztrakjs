@@ -3,9 +3,11 @@
 import * as eManAPI from './eManAPI.js'
 
 /**
- * Lookup for RCRAInfo codes
+ * Lookup for RCRAInfo codes.
  *
- * @param {string} codes den, min, port, form, source, state, fed, or mngt
+ * @param {string} codes den | min | port | form | source | state | fed | mngt
+ * @return {array} array of objects
+ * @link https://github.com/dpgraham4401/haztrak
  * */
 async function lookup (codes, stateCode = 'CA') {
   try {
@@ -48,7 +50,6 @@ async function lookup (codes, stateCode = 'CA') {
     const res = await eManAPI.get({
       url: codeUrl
     })
-    // console.log(res.data)
     return res.data
   } catch (error) {
     console.error(error.message)

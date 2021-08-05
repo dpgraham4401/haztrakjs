@@ -4,7 +4,7 @@ import * as eManAPI from './eManAPI.js'
 import fs from 'fs'
 
 /**
- * Bill-history: Retrieve billing history by account ID
+ * Bill-history: Retrieve billing history by account ID.
  *
  * @param {object} bill billing object by ID or date
  * @param {string} bill.billingAccount billing account number
@@ -31,7 +31,7 @@ async function eManBillHistory (bill) {
 }
 
 /**
- * Bill: Retrieve bill for provided bill id or date
+ * Bill: Retrieve bill for provided bill id or date.
  *
  * @param {object} bill billing object by ID or date
  * @param {string} bill.billId invoice id number
@@ -58,10 +58,11 @@ async function eManBill (bill) {
 }
 
 /**
- * Manifest data: Get manifests Data and/or attachment
+ * Manifest data: Get manifests Data.
+ *
+ * Currently downloading the attachment.zip is not supported.
  *
  * @param {string} mtn manifest tracking number
- * @param {boolean} attachments [1] get zip files [0] just JSON
  * */
 async function eManGet (mtn, attachments = false) {
   try {
@@ -94,7 +95,7 @@ async function eManGet (mtn, attachments = false) {
 }
 
 /**
- * Search: retrieve manifest tracking numbers based on search criteria
+ * Search: retrieve manifest tracking numbers based on search criteria.
  *
  * @param {object} search object wit search criteria
  * @param {string} search.siteId site EPA ID number
@@ -124,7 +125,7 @@ async function eManSearch (search) {
 }
 
 /**
- * Correction-details: Retrieve all correction version info
+ * Correction-details: Retrieve all correction version info.
  *
  * @param {string} mtn manifest tracking number (MTN)
  **/
@@ -144,7 +145,7 @@ async function eManCorrectionDetails (mtn) {
 }
 
 /**
- * Correction-version: Retrieve details of manifest correction version
+ * Correction-version: Retrieve details of manifest correction version.
  *
  * @param {object} version
  * @param {string} version.manifestTrackingNumber mtn
@@ -173,7 +174,7 @@ async function eManCorrection (version) {
 }
 
 /**
- * site MTNs: Get all manifest tracking number (MTN) for a given ID
+ * site MTNs: Get all manifest tracking number (MTN) for a given ID.
  *
  * @param {string} siteId EPA id number
  **/
@@ -193,10 +194,10 @@ async function siteMtn (siteId) {
 }
 
 /**
- * site-ids: Get site-ids by state code and handler type
+ * site-ids: Get site-ids by state code and handler type.
  *
  * @param {string} stateCode state code (e.g. MA, TX, VA)
- * @param {boolean} siteType handler type (Generator, TSDF, Transporter)
+ * @param {string} siteType handler type (Generator, TSDF, Transporter)
  * */
 async function eManSites (stateCode, siteType) {
   try {
@@ -220,10 +221,15 @@ async function eManSites (stateCode, siteType) {
 }
 
 /**
-  * Correct: correct previously submitted manifest with JSON and optional zip
+  * Correct: correct previously submitted manifest with JSON and optional zip.
+  *
+  * Please note there are criteria for what manifests can be corrected 
+  * Will only upload zip file if zipPath param provided.
   *
   * @param {string} mtnJson manifest object
   * @param {string} zipPath Path to zip attachment
+  *
+  * @link https://github.com/USEPA/e-manifest/tree/master/Services-Information
   * */
 async function eManCorrect (mtnJson, zipPath) {
   try {
@@ -262,7 +268,7 @@ async function eManCorrect (mtnJson, zipPath) {
 }
 
 /**
- * Revert: manifest under correction to previous version
+ * Revert: manifest under correction to previous version.
  *
  * @param {string} mtn manifest tracking number (MTN)
  * */
@@ -282,7 +288,7 @@ async function eManRevert (mtn) {
 }
 
 /**
- * mtnExists: Check whether an manifest tracking number exists
+ * mtnExists: Check whether an manifest tracking number exists.
  *
  * @param {string} mtn manifest tracking number
  * */
@@ -302,7 +308,9 @@ async function mtnExists (mtn) {
 }
 
 /**
-  * Update: update manifest with JSON and optional zip attachment
+  * Update: update manifest with JSON and optional zip attachment.
+  *
+  * Will only upload zip if zipPath param provided
   *
   * @param {string} mtnJson manifest object
   * @param {string} zipPath Path to zip attachment
@@ -344,9 +352,13 @@ async function eManUpdate (mtnJson, zipPath) {
 }
 
 /**
- * Delete: manifests when allowed
+ * Delete: remove manifest from e-Manifest system
+ *
+ * Please note criteria for when allowed.
  *
  * @param {string} mtn manifest tracking number
+ *
+ * @link https://github.com/USEPA/e-manifest/tree/master/Services-Information
  * */
 async function eManDel (mtn) {
   try {
@@ -366,7 +378,9 @@ async function eManDel (mtn) {
 }
 
 /**
-  * Save: manifest with JSON and optional zip attachment
+  * Save: manifest with JSON and optional zip attachment.
+  *
+  * will only request optional zip if path specified.
   *
   * @param {string} mtnJson manifest object
   * @param {string} zipPath Path to zip attachment

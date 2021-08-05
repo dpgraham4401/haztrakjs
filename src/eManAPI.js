@@ -1,6 +1,12 @@
-// Axios interceptors
-// Needs to be completely refactored
-
+/**
+ * Axios instance decalration and interceptors.
+ *
+ * Used during every call to the RCRAInfo API.
+ *
+ * @link https://github.com/USEPA/e-manifest
+ * @author David Graham
+ *
+ */
 import {} from 'dotenv/config'
 import axios from 'axios'
 

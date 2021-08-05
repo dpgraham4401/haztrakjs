@@ -55,44 +55,4 @@ async function site (siteInfo) {
   }
 }
  
-// /**
-//  * Validate a handler's EPA ID
-//  *
-//  * @param {string} siteID
-//  */
-// async function siteExist (siteID) {
-//   try {
-//     const res = await eManAPI.get({
-//       url: `./site-exists/${siteID}`
-//     })
-//     // console.log(res.data)
-//     return res.data
-//   } catch (error) {
-//     console.error(error.request)
-//     console.error(error.message)
-//     console.error(error.response.data)
-//   }
-// }
-// 
-// // beta
-// // eslint-disable-next-line no-unused-vars
-// async function siteSearch () {
-//   try {
-//     const res = await eManAPI.post({
-//       url: '/site-search',
-//       data: {
-//         name: 'Heating and Oil',
-//         // eslint-disable-next-line quotes
-//         zip: "22033",
-//         // eslint-disable-next-line quotes
-//         state: "VA"
-//       }
-//     })
-//     console.log(res.data)
-//   } catch (error) {
-//     console.error(error.message)
-//     console.error(error.response.data)
-//   }
-// }
-
 export { site }
