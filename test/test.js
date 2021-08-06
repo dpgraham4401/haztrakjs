@@ -58,7 +58,7 @@ describe('e-Manifest UI Link', function () {
       mtn: "100028450ELC",
       epaSiteId: "VATEST000001"
     }
-    const link3 = haztrak.eManLink(linkReq3)
+    const link3 = await haztrak.eManLink(linkReq3)
     assert.equal(typeof link3, 'string')
   })
 })
