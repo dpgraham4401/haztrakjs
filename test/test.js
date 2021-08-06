@@ -75,48 +75,48 @@ describe('GET manifest', function () {
 // Lookup services
 describe('Lookup Services', function () {
   it('Density', async function () {
-    const den = haztrak.lookup('den')
+    const den = await haztrak.lookup('den')
     assert.equal(typeof den, 'object')
   })
   it('Form Codes', async function () {
-    const form = haztrak.lookup('form')
+    const form = await haztrak.lookup('form')
     assert.equal(typeof form, 'object')
   })
   it('Source Codes', async function () {
-    const source = haztrak.lookup('source')
+    const source = await haztrak.lookup('source')
     assert.equal(typeof source, 'object')
   })
   it('state codes', async function () {
-    const state = haztrak.lookup('state', 'CA')
+    const state = await haztrak.lookup('state', 'CA')
     assert.equal(typeof state, 'object')
   })
   it('state codes', async function () {
-    const fed = haztrak.lookup('fed')
+    const fed = await haztrak.lookup('fed')
     assert.equal(typeof fed, 'object')
   })
   it('Minimization codes', async function () {
-    const min = haztrak.lookup('min')
+    const min = await haztrak.lookup('min')
     assert.equal(typeof min, 'object')
   })
   it('Port codes', async function () {
-    const port = haztrak.lookup('port')
+    const port = await haztrak.lookup('port')
     assert.equal(typeof port, 'object')
   })
 })
 
-// Save manifest
-describe('Save Manifest', function () {
-  it('Save new electronic manifest', function () {
-    fs.readFile('./exampleMan.json', 'utf8', async (err, data) => {
-      if (err) {
-        console.log('Error reading file:')
-      } else {
-        let manifest = JSON.parse(data)
-        manifest = JSON.stringify(manifest)
-        const res = await haztrak.eMan.save(manifest)
-        assert.equal(typeof res, object)
-      }
-    })
-  })
-})
+// // Save manifest
+// describe('Save Manifest', function () {
+//   it('Save new electronic manifest', function () {
+//     fs.readFile('./exampleMan.json', 'utf8', async (err, data) => {
+//       if (err) {
+//         console.log('Error reading file:')
+//       } else {
+//         let manifest = JSON.parse(data)
+//         manifest = JSON.stringify(manifest)
+//         const res = await haztrak.eMan.save(manifest)
+//         assert.equal(typeof res, object)
+//       }
+//     })
+//   })
+// })
 
