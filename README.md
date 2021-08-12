@@ -8,10 +8,6 @@
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 [![Build](https://github.com/dpgraham4401/hazTrak/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/dpgraham4401/hazTrak/actions/workflows/npm-publish.yml)
 
-
-## Still in alpha phase!!!
-The API on this package is liable to break w/o warning on a regular basis for the time being
-
 ## Table of Contents
   - [Intro](#Intro)
   - [Installation](#installation)
@@ -33,9 +29,9 @@ e-Manifest was established by the EPA as a national IT system that enables the
 Agency and the [RCRA](https://www.epa.gov/rcra) community to electronically track hazardous waste
 shipments. It was built as a modular component of [RCRAInfo](https://rcrainfo.epa.gov).
 
-haztrak simplifies the process of consuming the RCRAInfo/e-Manifest API, and
+haztrak simplifies the process of integrating with the RCRAInfo/e-Manifest system, and
 transitioning to electronic manifests by abstracting the implementation and
-letting you get back to what's important 
+letting you get back to what's important.
 
 For additional information about e-Manifest, check out the below links
   - [USEPA/e-Manifest Github](https://github.com/USEPA/e-manifest)
@@ -43,22 +39,20 @@ For additional information about e-Manifest, check out the below links
   - [RCRAifno PreProduction](https://rcrainfopreprod.epa.gov)
   - [About e-Manifest](https://www.epa.gov/e-manifest)
 
-  All haztrak functions behave asynchronously
+One of the best sources of documentation for this project, is the [e-Manifest Swagger page](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger)
+
+For a python alternative see the [emanifest pip package](https://pypi.org/project/emanifest/)
 
 ## Installation
 ```bash 
   $ npm install haztrak
-```
-or 
-```bash
+  or
   $ yarn add haztrak
 ```
 haztrak uses ES6 module syntax, see [Node's documentation](https://nodejs.org/api/packages.html#packages_modules_packages) for more info.
 
-
 ## Environment Variables
-To run this project, you will need to add the following environment variables to your .env file
-see the  [e-Manifest doc](https://github.com/USEPA/e-manifest/blob/master/Services-Information/e-Manifest%20Authenticate%20Get%20and%20Lookup%20Services%20v6.3.pdf) for details
+To use haztrak, you'll need Site Maanger access to a site with an API ID and key. You will need to add the following environment variables to your .env file
 
 `BASE_URL` RCRAInfo or PreProd baseURL
 
@@ -66,51 +60,57 @@ see the  [e-Manifest doc](https://github.com/USEPA/e-manifest/blob/master/Servic
 
 `RCRAINFO_API_KEY`
 
-Note: you'll need Site Manager level access to at least one EPA ID to get an API ID/key
 ## Examples
-
 
 #### Site Services
 ```javascript
 import haztrak from 'haztrak'
 
-const foobar = async () => {
-  const siteID = 'VATEST000001'
-  const siteIdCheck = await haztrak.siteExist(siteID)
-  const siteInfo = await haztrak.siteDetails(siteID)
+const  = async () => {
+  // To get site details, set details field to True
+  detailObject = {
+      siteId: 'VATEST000001',
+      detail: 'True'
+  }
+  // To check if site exist, set exist field to True
+  existObject = {
+      siteId: 'VATEST000001',
+      exist: 'True'
+  }
+  // Pass search criteria in the obect to search for sites
+  searchCriteria = {
+      state: 'VA',
+      siteType: 'Transporter',
+      name: 'test transporter'
+  }
+  const siteInfo = await haztrak.site(detailObject)
+  const siteExist = await haztrak.site(existObject)
+  const searchRes = await haztrak.site(searchCriteria)
 }
 ```
 #### manifests UI link
 Returns a hyperlink to view or sign manifest(s) in RCRAinfo as the specified facility
 
-See [ToDo.md](./docs/ToDo.md) for future changes to api
 ```javascript
 import haztrak from 'haztrak'
 
 const foobar = async () => {
-  const siteID = 'VATEST000001'
-  const page   = 'BulkSign'
-  const mtn    = ['000000001ELC', '000000002ELC', '000000003ELC']
-  const siteIdCheck = await haztrak.eManLink(page, siteID, mtn)
+  linkObject = {
+     page: <BulkSign | Dashboard | BulkQuickSign | Edit | View | Sign> 
+     epaSiteId: <EPA ID Number viewing manifests as>
+     mtn: <array of manifest tracking numbers>
+   }
+  const eManLink = await haztrak.eManLink(linkObject)
 }
 ```
-'page' argument options include
-
-```'BulkSign'``` &rarr; Sign/Certify all manifest in the array
-```'DashBoard'``` &rarr; link to the e-Manifest dashboard
-```'BulkQuickSign'```&rarr; Quick sign all manifests in the array (mtn)
-```'Edit'```&rarr; 
-```'View'```&rarr;
-```'Sign'```&rarr;
-
-only 1 MTN allowed for Edt, View, or Sign
+Edit, View and Sign only accept 1 MTN
 
 #### RCRAInfo Lookup
 ```javascript
 import haztrak from 'haztrak'
 
 const foo = async () => {
-  const denCities = await haztrak.lookup('den')
+  const densityCodes = await haztrak.lookup('den')
 }
 ```
 haztrak.lookup accepts one of the below string
@@ -126,36 +126,39 @@ haztrak.lookup accepts one of the below string
 
 haztrak.eMaLlookup accepts one of the below strings. Parameters with filt require additional arguements 
 
-This will change to an object in version 2.0. See [ToDo.md](./docs/ToDo.md)
 ```javascript
 import haztrak from 'haztrak'
 
 const foo = async () => {
-  const shippingNames = await haztrak.eManLookup('name')
-  console.log(shippingNames)
-
-  const hazClass = await haztrak.eManLookup('haz-filt', 'Acetal', 'UN1088')
-  console.log(hazClass) 
+  // shippingName and idNumber are only required for codes with filt suffix
+  eLookupObject = {
+    codes: <name | id | haz | pack | num-suffix | num-siffix-all | cont | uom | load | haz-filt | pack-filt | name-filt | id-filt>
+    shippingName: <possibles values from codes='dot'>
+    idNumber: <possibles values from codes='id'>
+  }
+  const shippingNames = await haztrak.eManLookup(eLookupObject) 
 }
 ```
-  - ```'name'```      &rarr; DOT shipping name
-  - ```'id'```        &rarr; DOT ID number
-  - ```'haz'```       &rarr; DOT hazard classes
-  - ```'pack'```      &rarr; DOT packing groups
-  - ```'num-suffix'```   &rarr; Printed manifest tracking number (MTN) suffixes
-  - ```'num-suffix-all'```   &rarr; All manifest tracking number (MTN) suffixes
-  - ```'cont'```      &rarr; Container types
-  - ```'uom'```       &rarr; Quantity Units of Measurement
-  - ```'load'```      &rarr; Polychlorinated biphynal (PCB) load types
-  - ```'haz-filt'```  &rarr; Get DOT hazard class(es) by DOT shipping name and id number
-  - ```'pack-filt'``` &rarr; Get DOT packing group(s) by DOT shipping name and id number
-  - ```'id-filt'```   &rarr; DOT Id Numbers by DOT Proper Shipping name
-  - ```'name-filt'``` &rarr; DOT Proper Shipping names by DOT Id Number
 
 ## e-Manifest Examples
 Now the good stuff, electronic manifesting
+in version 2.0, downloading zip atachments is unsupported.
 
-Currently all attachment options are unsuported.
+eMan provides the following methods
+1. billHistory
+2. bill
+3. search
+4. correctionDetail
+5. correction
+6. siteMtn
+7. get
+8. sites
+9. correct
+10. revert
+11. exists
+12. update
+13. del
+14. save
 
 #### Get
 eMan.get takes the manifest tracking number (MTN) and returns an object of the curent version in the e-Manifest system.
@@ -165,12 +168,12 @@ eMan.get takes the manifest tracking number (MTN) and returns an object of the c
   const exampleGet = async () => {
     const mtn = '012345678ELC'
     const res = await haztrak.eMan.get(mtn)
-    console.log(res)
   }
+  examplesGet()
 ```
 
 #### Save
-eMan.save takes a stringified JSON and returns the e-Manifest response oulined in the [USEPA/e-Manifest](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Save%20Update%20Delete%20Revert%20Create-Correction%20Manifest%20services%20v3.7.pdf) documentation. Please see their documentation for the example scheme and responses.
+eMan.save takes a stringified JSON and returns the e-Manifest response oulined in the [USEPA/e-Manifest](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Save%20Update%20Delete%20Revert%20Create-Correction%20Manifest%20services%20v3.7.pdf) documentation.
 
 For this example, the manifest we'd like to save is stored in a JSON file
 ```javascript
@@ -184,7 +187,6 @@ const exampleSave = async () => {
       let manifest = JSON.parse(data)
       manifest = JSON.stringify(manifest)
       const res = await haztrak.eMan.save(manifest)
-      console.log(res)
     }
   })
 }
@@ -196,13 +198,24 @@ eMan.delete accepts an mtn and returns the e-Manifest response outlined in the e
 const testDel = async () => {
   const mtn = '100032099ELC'
   const res = await haztrak.eMan.delete(mtn)
-  console.log(res)
 }
 testDel()
 
 ```
 ## Contributing
-For more information about upcoming changes, the status of haztrak or looking to contribute, see the [Contributing](./docs/CONTRIBUTING.md) and  [ToDo](./docs/ToDo.md) page.
+If you have an idea for something you'd like to see in haztrak, please do not be afraid to contribute! I have some general guidelines in [docs/Contributing](./docs/CONTRIBUTING.md) but if you see something you don't like, I'll probably change it for you. 
+
+The general process for contributing code features/improvements is... 
+1. Fork the Project
+2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
+3. Make sure your changes are tested either with unit or UI tests. (npm test)
+4. Commit your Changes (git commit -m 'Add some AmazingFeature')
+5. Push to the Branch (git push origin feature/AmazingFeature)
+6. Open a Pull Request!
+
+If you'd like to propose something, just go right for the pull request. 
+
+There's more ways to contribute than JavaScript, for more details see [docs/Contributing](./docs/CONTRIBUTING.md) :)
 
 ## License
 haztrak is licensed under the terms of the [MIT license](LICENSE.md)
