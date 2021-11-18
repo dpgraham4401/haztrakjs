@@ -67,19 +67,19 @@ hazTrak will load any Variables you have in your .env file see the [dotenv] (htt
 ```javascript
 import haztrak from 'haztrak'
 
-const  = async () => {
+const  checkSites = async () => {
   // To get site details, set details field to True
-  detailObject = {
+  const detailObject = {
       siteId: 'VATEST000001',
       detail: 'True'
   }
   // To check if site exist, set exist field to True
-  existObject = {
+  const existObject = {
       siteId: 'VATEST000001',
       exist: 'True'
   }
   // Pass search criteria in the obect to search for sites
-  searchCriteria = {
+  const searchCriteria = {
       state: 'VA',
       siteType: 'Transporter',
       name: 'test transporter'
@@ -88,6 +88,7 @@ const  = async () => {
   const siteExist = await haztrak.site(existObject)
   const searchRes = await haztrak.site(searchCriteria)
 }
+checkSites()
 ```
 #### manifests UI link
 Returns a hyperlink to view or sign manifest(s) in RCRAinfo as the specified facility
