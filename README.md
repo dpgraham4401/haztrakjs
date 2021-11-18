@@ -52,7 +52,8 @@ For a python alternative see the [emanifest pip package](https://pypi.org/projec
 haztrak uses ES6 module syntax, see [Node's documentation](https://nodejs.org/api/packages.html#packages_modules_packages) for more info.
 
 ## Environment Variables
-To use haztrak, you'll need Site Maanger access to a site with an API ID and key. You will need to add the following environment variables to your .env file
+To use haztrak, you'll need Site Maanger access to a site with an API ID and key. You will need to add the following environment variables. 
+hazTrak will load any Variables you have in your .env file see the [dotenv] (https://www.npmjs.com/package/dotenv) for more details
 
 `BASE_URL` RCRAInfo or PreProd baseURL
 
@@ -114,13 +115,13 @@ const foo = async () => {
 }
 ```
 haztrak.lookup accepts one of the below string
-  - ```'den'```   &rarr; Density code
-  - ```'form'```  &rarr; Form Codes
-  - ```'source'```&rarr; Source Code
-  - ```'state'``` &rarr; State waste codes
-  - ```'fed'```   &rarr; Federal Waste Codes
-  - ```'min'```   &rarr; Waste minimization codes
-  - ```'ports'``` &rarr; Ports of entry
+  - ```den```    &rarr; Density code
+  - ```form```   &rarr; Form Codes
+  - ```source``` &rarr; Source Code
+  - ```state```  &rarr; State waste codes
+  - ```fed```    &rarr; Federal Waste Codes
+  - ```min```    &rarr; Waste minimization codes
+  - ```ports```  &rarr; Ports of entry
 
 #### e-Manifest Lookup
 
@@ -173,7 +174,7 @@ eMan.get takes the manifest tracking number (MTN) and returns an object of the c
 ```
 
 #### Save
-eMan.save takes a stringified JSON and returns the e-Manifest response oulined in the [USEPA/e-Manifest](https://github.com/USEPA/e-manifest/blob/master/Services-Information/Save%20Update%20Delete%20Revert%20Create-Correction%20Manifest%20services%20v3.7.pdf) documentation.
+eMan.save takes a stringified JSON and returns the e-Manifest response oulined in the [USEPA/e-Manifest](https://github.com/USEPA/e-manifest/blob/master/Services-Information/) documentation.
 
 For this example, the manifest we'd like to save is stored in a JSON file
 ```javascript
