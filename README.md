@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/dpgraham4401/hazTrak/blob/master/logo.png">
+<img src="https://github.com/dpgraham4401/hazTrak-js/blob/master/logo.png">
 </p>
 <h1 align="center"><em> hazTrak </em></h1>
 
