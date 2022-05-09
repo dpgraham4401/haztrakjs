@@ -1,12 +1,7 @@
-<p align="center">
-<img src="https://github.com/dpgraham4401/hazTrak-js/blob/master/logo.png">
-</p>
-<h1 align="center"><em> hazTrak </em></h1>
-
-<p align="center"> Easily integrate with the EPA electronic hazardous waste tracking system (e-Manifest)</p>
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-[![Build](https://github.com/dpgraham4401/hazTrak/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/dpgraham4401/hazTrak/actions/workflows/npm-publish.yml)
+
+haztrakjs is no longer being actively maintained, please see [USEPA/e-Manifest](https://github.com/USEPA/e-manifest) for more details
 
 ## Table of Contents
   - [Intro](#Intro)
