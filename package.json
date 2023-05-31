@@ -1,10 +1,11 @@
 {
   "name": "emanifest",
-  "version": "0.0.1",
-  "description": "TypeScript client library for using the EPA e-Manifest APIs",
+  "version": "0.0.5",
   "main": "lib/index.js",
+  "description": "TypeScript client library for using the EPA e-Manifest APIs",
   "types": "lib/index.d.ts",
   "type": "module",
+  "exports": "./lib/index.js",
   "directories": {
     "doc": "docs"
   },
@@ -21,7 +22,8 @@
     "url": "https://github.com/dpgraham4401/haztrakjs.git"
   },
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "index.js"
   ],
   "keywords": [
     "TypeScript",
