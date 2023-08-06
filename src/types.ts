@@ -20,9 +20,22 @@ export type OriginType = 'Web' | 'Service' | 'Mail';
 
 export type SiteType = 'Generator' | 'Tsdf' | 'Transporter' | 'Rejection_AlternateTsdf';
 
+/**
+ * structure of many codes used by the manifest (waste codes, management methods codes, etc.)
+ */
 export interface RcraCode {
   code: string;
   description: string;
+}
+
+export interface RcraState {
+  code: string;
+  name: string;
+}
+
+export interface PortOfEntry {
+  cityPort: string;
+  state: RcraState;
 }
 
 export interface SiteSearchParameters {
