@@ -1,6 +1,6 @@
 {
   "name": "emanifest",
-  "version": "0.0.17",
+  "version": "0.0.20",
   "description": "API client library, written in TypeScript, for using the EPA e-Manifest/RCRAInfo web services.",
   "type": "module",
   "main": "./dist/emanifest-lib.umd.cjs",
@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "@types/node": "^20.4.8",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.9",
     "vite-plugin-dts": "^3.5.1"
   },
   "files": [
