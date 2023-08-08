@@ -1,4 +1,4 @@
-import { describe } from 'node:test';
+import { describe, it, expect } from 'vitest';
 import { newClient, RCRAINFO_PREPROD, RCRAINFO_PROD } from './client';
 
 describe('RcraClient', () => {
