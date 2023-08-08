@@ -1,6 +1,6 @@
 {
   "name": "emanifest",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "API client library, written in TypeScript, for using the EPA e-Manifest/RCRAInfo web services.",
   "type": "module",
   "main": "./dist/emanifest-lib.umd.cjs",
@@ -16,6 +16,9 @@
     "build": "tsc && vite build",
     "test": "vitest --run",
     "test:watch": "vitest --watch"
+  },
+  "dependencies": {
+    "axios": "^1.4.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.3",
@@ -44,8 +47,5 @@
   "bugs": {
     "url": "https://github.com/USEPA/emanifest/issues"
   },
-  "homepage": "https://github.com/USEPA/emainfest",
-  "dependencies": {
-    "axios": "^1.4.0"
-  }
+  "homepage": "https://github.com/USEPA/emainfest"
 }
