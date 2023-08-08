@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { newClient, RCRAINFO_PREPROD, RCRAINFO_PROD } from './client';
+import { newClient, RCRAINFO_PREPROD, RCRAINFO_PROD } from '../index';
 
 describe('RcraClient', () => {
   it('instantiates an object', () => {
