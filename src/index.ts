@@ -1,4 +1,4 @@
-import { RCRAINFO_PREPROD, RCRAINFO_PROD, newClient } from './client';
+import { RCRAINFO_PREPROD, RCRAINFO_PROD, newClient, RcraClientClass } from './client';
 import {
   AuthResponse,
   BillGetParameters,
@@ -40,4 +40,5 @@ export type {
   SubmissionType,
   PackingGroups,
   RcraState,
+  RcraClientClass,
 };

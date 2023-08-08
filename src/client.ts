@@ -23,22 +23,26 @@ interface RcraClientConfig {
   apiBaseURL?: RcrainfoEnv;
   apiID?: string;
   apiKey?: string;
+  authAuth?: Boolean;
 }
+
+export type RcraClientClass = typeof RcraClient;
 
 /**
  * Creates a new RcraClient object with the given configuration for use with the RCRAInfo API.
- * @param apiBaseURL
- * @param apiID
- * @param apiKey
+ * @param apiBaseURL - The base URL for the RCRAInfo API. defaults to RCRAINFO_PREPROD.
+ * @param apiID - The API ID for the RCRAInfo.
+ * @param apiKey - The API key for the RCRAInfo.
+ * @param authAuth - Automatically authenticate if necessary. By default, this is disabled.
  */
-export const newClient = ({ apiBaseURL, apiID, apiKey }: RcraClientConfig = {}) => {
-  return new RcraClient(apiBaseURL, apiID, apiKey);
+export const newClient = ({ apiBaseURL, apiID, apiKey, authAuth }: RcraClientConfig = {}) => {
+  return new RcraClient(apiBaseURL, apiID, apiKey, authAuth);
 };
 
 /**
  * An HTTP client for the RCRAInfo/e-Manifest web services.
- *
  * Under the hood, RcraClient uses the isomorphic Axios HTTP library, it can be used in a browser or node.js environment.
+ * The client can be configured to automatically authenticate with the API on every request. By default, this is disabled.
  * @param apiBaseURL
  * @param apiID
  * @param apiKey
@@ -51,11 +55,13 @@ class RcraClient {
   private apiKey?: string;
   token?: string;
   expiration?: string;
+  autoAuth?: Boolean;
 
-  constructor(apiBaseURL: RcrainfoEnv, apiID?: string, apiKey?: string) {
+  constructor(apiBaseURL: RcrainfoEnv, apiID?: string, apiKey?: string, autoAuth: Boolean = false) {
     this.env = apiBaseURL || RCRAINFO_PREPROD;
     this.apiID = apiID;
     this.apiKey = apiKey;
+    this.autoAuth = autoAuth;
     this.apiClient = axios.create({
       baseURL: this.env,
       headers: {
@@ -69,10 +75,16 @@ class RcraClient {
       if (config.url?.includes('auth')) {
         return config;
       }
+      // if autoAuth is disabled return
+      if (!this.autoAuth) {
+        return config;
+      }
+      // If authAuth is enabled, check if we already have a token. If not, authenticate.
       if (!this.token) {
+        // Check the RcraClient object for apiID and apiKey.
         if (!this.apiID || !this.apiKey) {
           // If there's no token and no apiID or apiKey, throw an error. We can't authenticate.
-          throw new Error('Please API ID and Key to authenticate.');
+          throw new Error('Please add API ID and Key to authenticate.');
         }
         // If there's no token, but there is an apiID and apiKey, try to authenticate.
         await this.authenticate().catch((err) => {

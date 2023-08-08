@@ -7,6 +7,10 @@ describe('RcraClient', () => {
     expect(typeof client).toBe('object');
     expect(typeof client.authenticate).toBe('function');
   });
+  it('Does not auto-authenticate by default', () => {
+    const client = newClient({ apiBaseURL: RCRAINFO_PREPROD });
+    expect(typeof client.authenticate).toBe('function');
+  });
 });
 
 describe('emanifest package', () => {
