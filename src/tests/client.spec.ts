@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { MOCK_API_ID, MOCK_API_KEY, MOCK_TOKEN } from './mockConstants';
 import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
 import { newClient, RCRAINFO_PREPROD, RCRAINFO_PROD } from '../index';
@@ -14,10 +15,16 @@ describe('RcraClient', () => {
     expect(typeof client).toBe('object');
     expect(typeof client.authenticate).toBe('function');
   });
-  it('Does not auto-authenticate by default', async () => {
+  it('Retrieves a token when authenticating', async () => {
     const client = newClient({ apiBaseURL: RCRAINFO_PREPROD, apiID: MOCK_API_ID, apiKey: MOCK_API_KEY });
     await client.authenticate();
     expect(client.token).toBe(MOCK_TOKEN);
+  });
+  it('Auto-authentication is disabled by default', async () => {
+    const client = newClient({ apiBaseURL: RCRAINFO_PREPROD, apiID: MOCK_API_ID, apiKey: MOCK_API_KEY });
+    await client.getPackingGroups().catch((err: AxiosError) => {
+      expect(err.response?.status).toBe(401);
+    });
   });
 });
 

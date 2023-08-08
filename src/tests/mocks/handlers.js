@@ -1,6 +1,7 @@
 import { rest } from 'msw';
 import { MOCK_API_ID, MOCK_API_KEY, MOCK_PACKING_GROUPS, MOCK_TOKEN } from '../mockConstants';
 import { RCRAINFO_PREPROD } from '../../client';
+import { HttpStatusCode } from 'axios';
 
 export const handlers = [
   rest.get(`${RCRAINFO_PREPROD}/v1/auth/${MOCK_API_ID}/${MOCK_API_KEY}`, (req, res, ctx) => {
