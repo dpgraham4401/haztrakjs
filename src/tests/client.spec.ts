@@ -1,5 +1,5 @@
-import { AxiosError } from 'axios';
-import { MOCK_API_ID, MOCK_API_KEY, MOCK_TOKEN } from './mockConstants';
+import { AxiosError, AxiosResponse } from 'axios';
+import { MOCK_API_ID, MOCK_API_KEY, MOCK_PACKING_GROUPS, MOCK_TOKEN } from './mockConstants';
 import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
 import { newClient, RCRAINFO_PREPROD, RCRAINFO_PROD } from '../index';
 // @ts-ignore
@@ -25,6 +25,16 @@ describe('RcraClient', () => {
     await client.getPackingGroups().catch((err: AxiosError) => {
       expect(err.response?.status).toBe(401);
     });
+  });
+  it('Auto-authentication is requests a token first', async () => {
+    const client = newClient({
+      apiBaseURL: RCRAINFO_PREPROD,
+      apiID: MOCK_API_ID,
+      apiKey: MOCK_API_KEY,
+      authAuth: true,
+    });
+    const resp: AxiosResponse = await client.getPackingGroups();
+    expect(resp.data).toEqual(MOCK_PACKING_GROUPS);
   });
 });
 
