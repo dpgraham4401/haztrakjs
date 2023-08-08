@@ -14,10 +14,6 @@ import {
   UserSearchParameters,
 } from './types';
 
-export function sum(a: number, b: number): number {
-  return a + b;
-}
-
 export const RCRAINFO_PREPROD = 'https://rcrainfopreprod.epa.gov/rcrainfo/rest/api';
 export const RCRAINFO_PROD = 'https://rcrainfo.epa.gov/rcrainfo/rest/api';
 
