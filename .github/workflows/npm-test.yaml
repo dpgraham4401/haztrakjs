@@ -1,12 +1,12 @@
-name: Test, Build, and Publish
+name: Test NPM package
 
 on:
-  workflow_dispatch:
+  pull_request:
 
 
 jobs:
   release:
-    name: Release
+    name: Test NPM package
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,10 +25,3 @@ jobs:
 
       - name: Test
         run: npm run test
-
-      - name: Publish
-        run: npm publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-

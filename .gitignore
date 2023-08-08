@@ -1,15 +1,9 @@
-# Dotenv environment variable
 .env
-
-# Node Modules 
-node_modules/
-
-# Src
-src/test.js
-src/example*
-
+.idea/
 *.txt
 *.bak
 *.zip
 *.tar
-*.json
+node_modules/
+lib/
+dist/
