@@ -2,6 +2,10 @@
 
 # e-Manifest NPM package
 
+## *THIS REPO HAS BEEN MOVED*
+
+This project is now maintained in the [USEPA/e-manifest](https://github.com/USEPA/e-manifest) repository. 
+
 ## Intro
 
 The [emanifest npm package](https://www.npmjs.com/package/emanifest) is an API client library.
