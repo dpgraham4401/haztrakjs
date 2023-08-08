@@ -1,7 +1,7 @@
 .idea/
 .vscode/
 src/
-tests/
+**/tests/
 docs/
 .github/
 tsconfig.json

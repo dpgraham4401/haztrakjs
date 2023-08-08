@@ -1,259 +1,102 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-haztrakjs is no longer being actively maintained, please see [USEPA/e-Manifest](https://github.com/USEPA/e-manifest) for
-more details
-
-## Table of Contents
-
-- [Intro](#Intro)
-- [Installation](#installation)
-- [Environment Variables](#environment-variables)
-- [Examples](#examples)
-    - [Site Services](#site-services)
-    - [Manifest UI Link](#manifests-ui-link)
-    - [RCRAInfo Lookup Services](#rcrainfo-lookup)
-    - [e-Manifest Lookup Services](#e-manifest-lookup)
-- [e-Manifest Examples](#e-manifest-examples)
-    - [Get](#get)
-    - [Save](#save)
-    - [Delete](#delete)
-- [Contributing](#contributing)
-- [License](#license)
+# e-Manifest NPM package
 
 ## Intro
 
-e-Manifest was established by the EPA as a national IT system that enables the
-Agency and the [RCRA](https://www.epa.gov/rcra) community to electronically track hazardous waste
-shipments. It was built as a modular component of [RCRAInfo](https://rcrainfo.epa.gov).
-
-haztrak simplifies the process of integrating with the RCRAInfo/e-Manifest system, and
-transitioning to electronic manifests by abstracting the implementation and
-letting you get back to what's important.
+The [emanifest npm package](https://www.npmjs.com/package/emanifest) is an API client library.
+It simplifies the task of using the RCRAInfo/e-Manifest web services by abstracting the 
+authentication process, providing developer friendly API, and exporting TypeScript types.
+It's built on top of the [Axios](https://axios-http.com/) library, and can be used in both Node and browser 
+runtime environments (EPA has discussed making some public API available that do not need authentication in the near future).
 
 For additional information about e-Manifest, check out the below links
 
-- [USEPA/e-Manifest Github](https://github.com/USEPA/e-manifest)
+- [USEPA/eManifest Github](https://github.com/USEPA/e-manifest)
 - [RCRAInfo](https://rcrainfo.epa.gov)
 - [RCRAifno PreProduction](https://rcrainfopreprod.epa.gov)
 - [About e-Manifest](https://www.epa.gov/e-manifest)
+- [e-Manifest PreProd OpenAPI page](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger)
 
-One of the best sources of documentation for this project, is
-the [e-Manifest Swagger page](https://rcrainfopreprod.epa.gov/rcrainfo/secured/swagger)
-
-For a python alternative see the [emanifest pip package](https://pypi.org/project/emanifest/)
+For a python alternative see the [emanifest package on PyPI](https://pypi.org/project/emanifest/)
 
 ## Installation
 
 ```bash 
-  $ npm install haztrak
+  $ npm install emanifest 
   or
-  $ yarn add haztrak
+  $ yarn add emanifest
 ```
+## Basic Usage
 
-haztrak uses ES6 module syntax,
-see [Node's documentation](https://nodejs.org/api/packages.html#packages_modules_packages) for more info.
+The primary export of the `emanifest` package is the `newClient` function.
+A constructor that accepts a configuration object and returns a new `RcraClient` 
+instance. 
 
-## Environment Variables
+```typescript
+import { AxiosResponse } from 'axios';
+import { newClient, RCRAINFO_PREPROD, AuthResponse } from 'emanifest'
 
-To use haztrak, you'll need Site Maanger access to a site with an API ID and key. You will need to add the following
-environment variables.
-hazTrak will load any Variables you have in your .env file see the [dotenv] (https://www.npmjs.com/package/dotenv) for
-more details
+// The newClient accepts an instance of the RcraClientConfig which follows this interface
+// interface RcraClientConfig {
+// apiBaseURL?: RcrainfoEnv; // default: RCRAINFO_PREPROD
+// apiID?: string;
+// apiKey?: string;
+// authAuth?: Boolean; // default: false
+// }
 
-`BASE_URL` RCRAInfo or PreProd baseURL
-
-`RCRAINFO_API_ID`
-
-`RCRAINFO_API_KEY`
-
-## Examples
-
-#### Site Services
-
-```javascript
-import haztrak from 'haztrak'
-
-const checkSites = async () => {
-  // To get site details, set details field to True
-  const detailObject = {
-    siteId: 'VATEST000001',
-    detail: 'True'
-  }
-  // To check if site exist, set exist field to True
-  const existObject = {
-    siteId: 'VATEST000001',
-    exist: 'True'
-  }
-  // Pass search criteria in the obect to search for sites
-  const searchCriteria = {
-    state: 'VA',
-    siteType: 'Transporter',
-    name: 'test transporter'
-  }
-  const siteInfo = await haztrak.site(detailObject)
-  const siteExist = await haztrak.site(existObject)
-  const searchRes = await haztrak.site(searchCriteria)
-}
-checkSites()
-```
-
-#### manifests UI link
-
-Returns a hyperlink to view or sign manifest(s) in RCRAinfo as the specified facility
-
-```javascript
-import haztrak from 'haztrak'
-
-const foobar = async () => {
-  linkObject = {
-    page: <BulkSign | Dashboard | BulkQuickSign | Edit | View | Sign >
-  epaSiteId
-:
-  <EPA ID Number viewing manifests as>
-    mtn:
-    <array of manifest tracking numbers>
-      }
-      const eManLink = await haztrak.eManLink(linkObject)
-      }
-```
-
-Edit, View and Sign only accept 1 MTN
-
-#### RCRAInfo Lookup
-
-```javascript
-import haztrak from 'haztrak'
-
-const foo = async () => {
-  const densityCodes = await haztrak.lookup('den')
-}
-```
-
-haztrak.lookup accepts one of the below string
-
-- ```den```    &rarr; Density code
-- ```form```   &rarr; Form Codes
-- ```source``` &rarr; Source Code
-- ```state```  &rarr; State waste codes
-- ```fed```    &rarr; Federal Waste Codes
-- ```min```    &rarr; Waste minimization codes
-- ```ports```  &rarr; Ports of entry
-
-#### e-Manifest Lookup
-
-haztrak.eMaLlookup accepts one of the below strings. Parameters with filt require additional arguements
-
-```javascript
-import haztrak from 'haztrak'
-
-const foo = async () => {
-  // shippingName and idNumber are only required for codes with filt suffix
-  eLookupObject = {
-    codes:
-      <name | id | haz | pack | num - suffix | num - siffix - all | cont | uom | load | haz - filt | pack - filt | name - filt | id - filt >
-  shippingName
-:
-  <possibles values from codes='dot'>
-    idNumber:
-    <possibles values from codes='id'>
-      }
-      const shippingNames = await haztrak.eManLookup(eLookupObject)
-      }
-```
-
-## e-Manifest Examples
-
-Now the good stuff, electronic manifesting
-in version 2.0, downloading zip atachments is unsupported.
-
-eMan provides the following methods
-
-1. billHistory
-2. bill
-3. search
-4. correctionDetail
-5. correction
-6. siteMtn
-7. get
-8. sites
-9. correct
-10. revert
-11. exists
-12. update
-13. del
-14. save
-
-#### Get
-
-eMan.get takes the manifest tracking number (MTN) and returns an object of the curent version in the e-Manifest system.
-
-```javascript
-  import haztrak from 'haztrak'
-
-const exampleGet = async () => {
-  const mtn = '012345678ELC'
-  const res = await haztrak.eMan.get(mtn)
-}
-examplesGet()
-```
-
-#### Save
-
-eMan.save takes a stringified JSON and returns the e-Manifest response oulined in
-the [USEPA/e-Manifest](https://github.com/USEPA/e-manifest/blob/master/Services-Information/) documentation.
-
-For this example, the manifest we'd like to save is stored in a JSON file
-
-```javascript
-import haztrak from 'haztrak'
-import fs from 'fs'
-
-const exampleSave = async () => {
-  fs.readFile('./exampleMan.json', 'utf8', async (err, data) => {
-    if (err) {
-      console.log(`Error reading file: ${err}`)
-    } else {
-      let manifest = JSON.parse(data)
-      manifest = JSON.stringify(manifest)
-      const res = await haztrak.eMan.save(manifest)
-    }
-  })
-}
-exampleSave()
-```
-
-#### Delete
-
-eMan.delete accepts an mtn and returns the e-Manifest response outlined in the e-Manifest documentation.
-
-```javascript
-const testDel = async () => {
-  const mtn = '100032099ELC'
-  const res = await haztrak.eMan.delete(mtn)
-}
-testDel()
+const rcrainfo = newClient({ apiBaseURL: RCRAINFO_PREPROD, apiID: 'my_api_id', apiKey: 'my_api_key' })
+const authResponse: AxiosResponse<AuthResponse> = await rcrainfo.authenticate()
+console.log(authResponse.data)
 
 ```
 
-## Contributing
+### Other Exports 
 
-If you have an idea for something you'd like to see in haztrak, please do not be afraid to contribute! I have some
-general guidelines in [docs/Contributing](./docs/CONTRIBUTING.md) but if you see something you don't like, I'll probably
-change it for you.
+The emanifest package also exports the `RCRAINFO_PREPROD` and `RCRAINFO_PROD` constants which can be used to set 
+the `apiBaseURL` property of the `RcraClientConfig` object.
 
-The general process for contributing code features/improvements is...
+### Types
 
-1. Fork the Project
-2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
-3. Make sure your changes are tested either with unit or UI tests. (npm test)
-4. Commit your Changes (git commit -m 'Add some AmazingFeature')
-5. Push to the Branch (git push origin feature/AmazingFeature)
-6. Open a Pull Request!
+The emanifest package exports a types/interfaces that can be used in statically typed projects.
+The types follow the OpenAPI schema definitions that can be found in the [USEPA/e-manifest schema directory](https://github.com/USEPA/e-manifest/tree/master/Services-Information/Schema)
+however, some names have been modified for clarity (for example `RcraCode` instead of simply `Code`).
 
-If you'd like to propose something, just go right for the pull request.
 
-There's more ways to contribute than JavaScript, for more details see [docs/Contributing](./docs/CONTRIBUTING.md) :)
+## Auto-Authentication
 
-## License
+The `emanifest` package can be explicitly configured to automatically authenticate when needed.
 
-haztrak is licensed under the terms of the [MIT license](LICENSE)
+```typescript
+import { AxiosResponse } from 'axios';
+import { newClient, RCRAINFO_PREPROD, AuthResponse, RcraClientClass, RcraCode } from 'emanifest'
+
+const rcrainfo = newClient({
+  apiBaseURL: RCRAINFO_PREPROD,
+  apiID: 'my_api_id',
+  apiKey: 'my_api_key',
+  autoAuth: true // Set the RcraClient to automatically authenticate as needed
+})
+
+// the authenticate method is NOT explicitly called
+const resp: AxtiosResponse<RcraCode> = await rcrainfo.getStateWasteCodes('VA')
+
+console.log(resp.data) // [ { code: 'BCRUSH', description: 'Bulb or Lamp Crusher' } ]
+
+console.log(rcrainfo.isAuthenticated()) // true
+
+```
+
+
+## Disclaimer
+
+The United States Environmental Protection Agency (EPA) GitHub project code
+is provided on an "as is" basis and the user assumes responsibility for its
+use. EPA has relinquished control of the information and no longer has
+responsibility to protect the integrity, confidentiality, or availability
+of the information. Any reference to specific commercial products,
+processes, or services by service mark, trademark, manufacturer, or
+otherwise, does not constitute or imply their endorsement, recommendation
+or favoring by EPA. The EPA seal and logo shall not be used in any manner
+to imply endorsement of any commercial product or activity by EPA or
+the United States Government.
