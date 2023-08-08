@@ -105,7 +105,9 @@ class RcraClient {
         }
         return resp;
       })
-      .catch((err: AxiosResponse) => err);
+      .catch((err: AxiosResponse) => {
+        return err;
+      });
   };
 
   /**
